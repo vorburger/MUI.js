@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="mui.js_angular-addressbook">
+        <wb-resource deploy-path="/" source-path="/app"/>
+        <property name="context-root" value="mui"/>
+    </wb-module>
+</project-modules>
