@@ -1,4 +1,4 @@
-MUI.js - Michael's UI Builder Framework ;)
+MUI.js - M..(y) UI Builder Framework ;)
 ======
 
 Demos
