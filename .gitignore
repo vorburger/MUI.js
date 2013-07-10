@@ -1,5 +1,5 @@
 bin/
-build/
+# build/ <= do not ignore, it's used/needed in ng-grid!
 target/
 workspace/
 xtend-gen/
