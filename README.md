@@ -1,5 +1,12 @@
-MUI.js - Michael's ;) UI Framework, dot JS
+MUI.js - Michael's UI Builder Framework ;)
 ======
+
+Demos
+---
+* http://www.vorburger.ch/MUI.js/angular-addressbook/app/index.html
+
+Background
+---
 
 MUI.JS is currently a sandbox where I try to experiment with 
 modeling/rendering/editing/serializing UIs in pure Java Script.
