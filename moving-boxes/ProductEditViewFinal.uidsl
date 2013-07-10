@@ -1,0 +1,25 @@
+// https://docs.google.com/document/d/1Uv1GkqCpdqGmGgbO7Y0pPRtX-YqKkLrEzzYc4NxwE54/edit
+
+ProductEditView(product: ProductDetails = new) {
+	HTML productEditForm.html
+	name : TextField = product.name
+	price: HTML.INPUT = product.price
+	priceError: HTML.DIV
+	description = product.description
+	description.enabled = { price > 10 } // Description only enabled for $$$ Products
+	supplier : EntityLookup(product.supplier) {
+		on Lookup(String whatToFind) {
+			object = findSupplierByName(whatToFind)
+		}
+	}
+	supplierLocation : Google.Maps.MapWidget = supplier.zip
+	validationErrorMessages : LabelForValidationFeedback
+	save on Click {
+		feedback = saveNewProduct(product)
+		validationErrorMessages = feedback.summary
+		// TODO This should be implicit... (if desired)
+		name.validationErrorText = feedback["name"].message
+		description .validationErrorText = feedback["description "].message
+		priceError = feedback["price"].message
+	}
+}

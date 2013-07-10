@@ -1,0 +1,33 @@
+{
+    "__class" : "ch.vorburger.muijs.View",
+    "name"    : "ProductEdit",
+    
+    "content" : {
+		"layout" : "ch.vorburger.muijs.html.layouts.divs",
+		"widgets": [
+		    {
+		        "type"  : "ch.vorburger.muijs.html.widgets.input",
+		        "label" : "Name:",
+		        "value" : "LEGO Star Trek product" 
+		    },
+		    {
+		        "type"    : "ch.vorburger.muijs.html.widgets.input.numeric",
+		        "label"   : "Price:",
+		        "positive": true,
+		        "value"   : 12 
+		    },
+		    {
+		        "type"  : "ch.vorburger.muijs.html.widgets.input.textbox",
+		        "label" : "Description:",
+		        "rows"  : 5,
+		        "value" : "When will LEGO release Star Trek instead of Star Wars?"
+		    },
+		    {
+		        "type"  : "ch.vorburger.muijs.html.widgets.input.date",
+		        "label" : "Availability:",
+		        "view"  : "only-months",
+		        "value" : "2012-12"
+		    }
+		]        
+    }
+}

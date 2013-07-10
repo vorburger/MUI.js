@@ -1,0 +1,25 @@
+ch.vorburger.muijs.View {
+    name    : "ProductEdit"
+    
+    content : ch.vorburger.muijs.html.layouts.Divs {
+    	ch.vorburger.muijs.html.widgets.input {
+    		label: "Name:"
+    		value: "LEGO Star Trek product"
+    	}
+		ch.vorburger.muijs.html.widgets.input.numeric {
+		    label  : "Price:",
+		    positive: true,
+			value: 12 
+		}
+		ch.vorburger.muijs.html.widgets.input.textbox" {
+		    label  : "Description:"
+		    rows   : 5
+		    value" : "When will LEGO release Star Trek instead of Star Wars?"
+		},
+		ch.vorburger.muijs.html.widgets.input.date {
+			label : "Availability:"
+		    view  : "only-months"
+		    value : "2012-12"
+		}
+    }
+}

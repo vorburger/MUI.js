@@ -1,0 +1,13 @@
+package ch.vorburger.muijs
+
+class View {
+	String name
+	contains Widget[] content
+}
+
+abstract class Widget {
+}
+
+abstract class WidgetWithLabel extends Widget {
+	String label
+}

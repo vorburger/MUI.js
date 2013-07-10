@@ -1,0 +1,8 @@
+{
+    "__class" : "ch.vorburger.muijs.sample1.Product"
+
+    "name": "LEGO Star Trek Enterprise NCC-1701",
+    "price": 54.65,
+    "description" : "To boldly go...",
+    "availability" : "2387-12"
+}
