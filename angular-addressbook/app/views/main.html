@@ -64,9 +64,21 @@
 			<!--Body content-->
 			<!-- TODO how to make this "fill the body" - height: 300px is stupid... -->
 			<div ng-grid="myGridOptions" style="height: 300px; border: 1px solid rgb(212,212,212)"></div>
-<!--			
-			<div class="selectedItems">{{mySelections}}</div>
-			<div>Name: {{mySelections[0].name}}</div> -->
+			
+			<!-- This is just to illustrate 'in-view' master/detail editing.. -->
+			<div><h4>Sample "in-view" Master/Detail View or Form</h4>
+				<form class="form-horizontal"> <!-- form-inline not (yet?) supported by Generator -->
+					<div class="control-group">
+						<label class="control-label" >Name:</label>
+						<div class="controls">
+							<input ng-model="mySelections[0].name" class="input-small" required>
+							<!-- TODO how to only show '(' ... ')' if there's an email? -->
+							(<a href="mailto:{{mySelections[0].email}}" >{{mySelections[0].email}}</a>)
+						</div>
+					</div>
+				</form>
+				<!--<div>Country: {{mySelections[0].country}}</div>-->
+			</div>
 		</div>
 		<div class="span3">
 			<form class="form-horizontal">
