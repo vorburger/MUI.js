@@ -50,8 +50,11 @@
 					<ul class="nav nav-list">
 						<li class="nav-header">Admin Menu</li>
 						<li><a href="#"><i class="icon-home"></i> Home</a></li>
-						<!-- TODO class="active" should be automatic... Bootstrap already has something for this? -->
-						<li class="active"><a href="#"><i class="icon-user"></i> Contacts</a></li>
+						<!-- TODO class="active" should be automatic... 
+							 note, it cannot just directly (100%) match URL.. e.g. Add page should be "in" this menu, too!
+							 Bootstrap already has something for this? -->
+						<li class="active"><a href="#/contacts"><i class="icon-user"></i> Contacts</a></li>
+						<!-- [+] icon, to Add page -->
 						<li><a href="#"><i class="icon-globe"></i> Countries</a></li>
 						<li><a href="#" data-toggle="tooltip" title="You've got mail!" data-placement="right"><i
 								class="icon-envelope"></i> Notes <span class="badge badge-info">4</span></a></li>
@@ -62,25 +65,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="span7">
+		<div class="span7 container" ui-view="main-body">
 			<!--Body content-->
-			<!-- TODO how to make this "fill the body" - height: 300px is stupid... -->
-			<div ng-grid="myGridOptions" style="height: 300px; border: 1px solid rgb(212,212,212)"></div>
-			
-			<!-- This is just to illustrate 'in-view' master/detail editing.. -->
-			<div><h4>Sample "in-view" Master/Detail View or Form</h4>
-				<form class="form-horizontal"> <!-- form-inline not (yet?) supported by Generator -->
-					<div class="control-group">
-						<label class="control-label" >Name:</label>
-						<div class="controls">
-							<input ng-model="mySelections[0].name" class="input-small" required>
-							<!-- TODO how to only show '(' ... ')' if there's an email? -->
-							(<a href="mailto:{{mySelections[0].email}}" >{{mySelections[0].email}}</a>)
-						</div>
-					</div>
-				</form>
-				<!--<div>Country: {{mySelections[0].country}}</div>-->
-			</div>
 		</div>
 		<div class="span3">
 			<form class="form-horizontal">
