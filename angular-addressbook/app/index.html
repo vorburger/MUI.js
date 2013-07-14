@@ -30,7 +30,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <div class="container" ui-view></div> <!-- TODO ui-view="root" ?! -->
 
     <!-- BEWARE: The order in which *.js are listed / included below is VERY important! -->
 
@@ -64,6 +64,7 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/modules.js -->
+    <script src="bower_components/ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <!-- endbuild -->
 </body>
