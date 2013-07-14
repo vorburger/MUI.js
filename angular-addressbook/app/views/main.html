@@ -64,8 +64,9 @@
 			<!--Body content-->
 			<!-- TODO how to make this "fill the body" - height: 300px is stupid... -->
 			<div ng-grid="myGridOptions" style="height: 300px; border: 1px solid rgb(212,212,212)"></div>
-			
-			<div class="selectedItems">{{mySelections}}</div>			
+<!--			
+			<div class="selectedItems">{{mySelections}}</div>
+			<div>Name: {{mySelections[0].name}}</div> -->
 		</div>
 		<div class="span3">
 			<form class="form-horizontal">
@@ -75,7 +76,7 @@
 					<div class="control-group">
 						<label class="control-label" for="fname">Name:</label>
 						<div class="controls">
-							<input id="fname" type="text" class="input-xlarge" required >
+							<input ng-model="mySelections[0].name" id="fname" type="text" class="input-xlarge" required >
 						</div>
 					</div>
 
@@ -84,7 +85,7 @@
 						<div class="controls">
 							<div class="input-prepend">
 								<span class="add-on"><i class="icon-envelope"></i></span>
-								<input id="email" type="email" class="input-xlarge" />
+								<input ng-model="mySelections[0].email" id="email" type="email" class="input-xlarge" />
 								<!-- TODO Validation rule for email -->
 							</div>
 						</div>
