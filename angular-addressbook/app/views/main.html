@@ -49,11 +49,12 @@
 				<div class="well" style="padding: 8px 0;">
 					<ul class="nav nav-list">
 						<li class="nav-header">Admin Menu</li>
-						<li><a href="#"><i class="icon-home"></i> Home</a></li>
+						<!-- TODO when newer ui-router is released, use ui-sref="main.home" instead href! -->
+						<li><a href="#/main/home"><i class="icon-home"></i> Home</a></li>
 						<!-- TODO class="active" should be automatic... 
 							 note, it cannot just directly (100%) match URL.. e.g. Add page should be "in" this menu, too!
 							 Bootstrap already has something for this? -->
-						<li class="active"><a href="#/contacts"><i class="icon-user"></i> Contacts</a></li>
+						<li class="active"><a href="#/main/contacts"><i class="icon-user"></i> Contacts</a></li>
 						<!-- [+] icon, to Add page -->
 						<li><a href="#"><i class="icon-globe"></i> Countries</a></li>
 						<li><a href="#" data-toggle="tooltip" title="You've got mail!" data-placement="right"><i
