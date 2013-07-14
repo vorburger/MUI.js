@@ -12,17 +12,20 @@ angular.module('mui.jsAngularAddressbookApp')
                      {id: 4, name: 'Nephi', age: 29},
                      {id: 5, name: 'Enos', age: 34}];
 
-    // TODO Live column chooser!! Wrap that in a new component.. contribute (OSS) as plugin to ng-grid.
+    // TODO Better.. column chooser, instead showColumnMenu? Def. initially hidden cols, server-side persistence, etc. Wrap that in a new component.. contribute (OSS) as plugin to ng-grid.
     // This allows you to push/pop/splice/reassign column definitions and the changes will be reflected in the grid.
     $scope.myColumns = [{field: 'name', displayName: 'Name'},
                         {field: 'age', displayName: 'Age'},
                         // TODO create a CSS style for centering, and use cellClass & headerClass instead..
-                        {displayName: 'In.', width: 30, cellTemplate: '<div style="vertical-align: middle; text-align: center;"><i style="vertical-align: middle; " class="icon-edit"></i></div>' }];
+                        {width: 30, cellTemplate: '<div style="vertical-align: middle; text-align: center;"><a href="http://www.vorburger.ch"><i style="vertical-align: middle; " class="icon-edit"></i></a></div>' }];
     
     $scope.myGridOptions = { data: 'myData',
             selectedItems: $scope.mySelections,
             columnDefs: 'myColumns',
-            enableRowSelection: true, multiSelect: false };
+            enableRowSelection: true, multiSelect: false,
+            enableColumnReordering: true, showColumnMenu: true
+            // afterSelectionChange: function () { window.alert('yo'); }
+    };
             
     // you can also specify data as: $scope.myGridOptions = { data: $scope.myData }.
     // However, updates to the underlying data will not be reflected in the grid
