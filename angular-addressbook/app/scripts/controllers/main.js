@@ -17,7 +17,9 @@ angular.module('mui.jsAngularAddressbookApp')
     $scope.myColumns = [{field: 'name', displayName: 'Name'},
                         {field: 'age', displayName: 'Age'},
                         // TODO create a CSS style for centering, and use cellClass & headerClass instead..
-                        {width: 30, cellTemplate: '<div style="vertical-align: middle; text-align: center;"><a href="http://www.vorburger.ch"><i style="vertical-align: middle; " class="icon-edit"></i></a></div>' }];
+                        // TODO don't use /1 but read id
+                        // TODO don't use href but ui-sref= (does that work here?)
+                        {width: 30, cellTemplate: '<div style="vertical-align: middle; text-align: center;"><a href="#/main/contact/1"><i style="vertical-align: middle; " class="icon-edit"></i></a></div>' }];
     
     $scope.myGridOptions = { data: 'myData',
             selectedItems: $scope.mySelections,

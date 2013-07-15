@@ -1,0 +1,67 @@
+<form class="form-horizontal">
+	<fieldset>
+		<legend>Contact</legend>
+
+		<div class="control-group">
+			<label class="control-label" for="fname">Name:</label>
+			<div class="controls">
+				<input ng-model="mySelections[0].name" id="fname" type="text" class="input-xlarge" required >
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="email">Email:</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on"><i class="icon-envelope"></i></span>
+					<input ng-model="mySelections[0].email" id="email" type="email" class="input-xlarge" />
+					<!-- TODO Validation rule for email -->
+				</div>
+			</div>
+		</div>
+
+		<!-- TODO Multi-Value address line à la https://bootsnipp.com/snipps/dynamic-form-fields -->
+
+		<div class="control-group error">
+			<label class="control-label" for="country">Country:</label>
+			<div class="controls">
+				<input autocomplete="off" type="text" id="country" class="input-xlarge search-query" data-provide="typeahead"
+					data-items="4" data-source='["Switzerland","India"]'>
+				<span class="help-inline text-error">Country is required</span>
+			</div>
+		</div>
+
+		<div class="control-group info">
+			<label class="control-label" for="phone">Fone:</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<!-- TODO show country code dialing prefix in function of Country chosen above.. -->
+					<span class="add-on">+41</span>
+					<input type="tel" id="phone" class="input-xlarge" />
+				</div>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="activesince">Active since:</label>
+			<div class="controls">
+
+				<div class="input-append">
+					<input ui-date type="text" ng-required="true" id="activesince" class="input-xlarge" />
+					<span class="add-on"><i class="icon-calendar"></i></span>
+				</div>
+
+
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="alert alert-block">
+				<!-- TODO Generator should allow to choose autoSave vs. explicitSave style? -->
+				<!-- Intentionally No SAVE button here... -->
+				<a href="#" class="disabled btn btn-large btn-inverse pull-right">Cancel</a>
+				<h4>Saving changes...</h4>
+				<p>Press Cancel to Undo.</p>
+			</div>
+		</div>
+	</fieldset>
+</form>
