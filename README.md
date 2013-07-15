@@ -35,10 +35,18 @@ $ grunt server  (WAS: yeoman server)
 $ grunt
 ... builds dist/, with JS+CSS concatenated and (some) minification
 
+http://net.tutsplus.com/tutorials/tools-and-tips/meet-bower-a-package-manager-for-the-web/
+http://blog2.vorburger.ch/2013/07/bower1.html
+$ bower lookup angular-ui-router	
+$ bower install jquery
+$ bower ls
+
 $ scripted from https://github.com/scripted-editor/scripted/ is great! Just:
 	* Have a .scripted in your project root (especially if you don't have a .project)
 	* Have a .jshintrc with { "browser" : true } for it to know about document.
 	* Add "jquery" : true to .jshintrc for it not to whine about jQuery. + $(function() { (@see )
+
+* AngularJS Chrome extension plug-in; nice! https://github.com/angular/angularjs-batarang
 
 
 Code
