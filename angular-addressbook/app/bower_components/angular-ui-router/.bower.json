@@ -1,0 +1,14 @@
+{
+  "name": "angular-ui-router",
+  "main": "./release/angular-ui-router.min.js",
+  "dependencies": {
+    "angular": ">= 1.0.6"
+  },
+  "_release": "2ce9921909",
+  "_resolution": {
+    "type": "commit",
+    "commit": "2ce99219098167848b81bf8cc0dc40fa21fac8a6"
+  },
+  "_source": "git://github.com/angular-ui/ui-router.git",
+  "_target": "2ce99219098167848b81bf8cc0dc40fa21fac8a6"
+}

@@ -11,6 +11,7 @@
     
     "angular-ui-date": "latest",
     "ng-grid": "latest"
+    // "angular-ui-router": "latest" -- http://blog2.vorburger.ch/2013/07/bower1.html ?
   },
   "devDependencies": {
     "angular-mocks": "~1.0.7",
