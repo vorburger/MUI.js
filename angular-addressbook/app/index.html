@@ -2,11 +2,11 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" id="ng-app" ng-app="mui.jsAngularAddressbookApp"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title></title>
+    <title ng-bind="$state.current.title"></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
@@ -16,9 +16,8 @@
         <link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.css"/>
         <link rel="stylesheet" href="bower_components/ng-grid/ng-grid.css"/>
         <!-- endbuild -->
-        
 </head>
-  <body id="ng-app" ng-app="mui.jsAngularAddressbookApp">
+  <body>
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -60,12 +59,11 @@
     
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/main.js"></script>
+    <!-- <script src="scripts/controllers/main.js"></script> -->
     <!-- endbuild -->
 
     <!-- build:js scripts/modules.js -->
     <script src="scripts/angular-ui-router.js"></script>
-    <!--<script src="http://angular-ui.github.io/ui-router/build/angular-ui-router.js"></script>-->
     <!--<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>-->
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <!-- endbuild -->
