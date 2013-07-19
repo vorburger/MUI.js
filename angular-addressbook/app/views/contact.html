@@ -1,11 +1,12 @@
-<form class="form-horizontal">
+<form name="myForm" class="form-horizontal">
 	<fieldset>
 		<legend>Contact</legend>
 
-		<div class="control-group">
+		<div class="control-group" ng-class="{error: myForm.fname.$invalid}">
 			<label class="control-label" for="fname">Name:</label>
 			<div class="controls">
-				<input ng-model="mySelections[0].name" id="fname" type="text" class="input-xlarge" required >
+				<input ng-model="model.contact.name" name="fname" id="fname" type="text" class="input-xlarge" required >
+				<span ng-show="myForm.fname.$error.required" class="help-inline">Required</span>
 			</div>
 		</div>
 
@@ -14,8 +15,9 @@
 			<div class="controls">
 				<div class="input-prepend">
 					<span class="add-on"><i class="icon-envelope"></i></span>
-					<input ng-model="mySelections[0].email" id="email" type="email" class="input-xlarge" />
-					<!-- TODO Validation rule for email -->
+					<input ng-model="model.contact.email" name="email" id="email" type="email" class="input-xlarge" required />
+					<span ng-show="myForm.email.$error.required" class="help-inline">Required</span>
+					<span ng-show="myForm.email.$error.email" class="help-inline">Not an Email</span>
 				</div>
 			</div>
 		</div>
@@ -25,8 +27,10 @@
 		<div class="control-group error">
 			<label class="control-label" for="country">Country:</label>
 			<div class="controls">
-				<input autocomplete="off" type="text" id="country" class="input-xlarge search-query" data-provide="typeahead"
+			    <!-- TODO auto complete model should be read from a model as well.. -->
+				<input ng-model="model.contact.country" autocomplete="off" type="text" id="country" class="input-xlarge search-query" data-provide="typeahead"
 					data-items="4" data-source='["Switzerland","India"]'>
+				<!-- TODO do this right.. only show in case of validation errors... -->
 				<span class="help-inline text-error">Country is required</span>
 			</div>
 		</div>
@@ -37,7 +41,7 @@
 				<div class="input-prepend">
 					<!-- TODO show country code dialing prefix in function of Country chosen above.. -->
 					<span class="add-on">+41</span>
-					<input type="tel" id="phone" class="input-xlarge" />
+					<input ng-model="model.contact.phone" type="tel" id="phone" class="input-xlarge" />
 				</div>
 			</div>
 		</div>
@@ -47,7 +51,9 @@
 			<div class="controls">
 
 				<div class="input-append">
-					<input ui-date type="text" ng-required="true" id="activesince" class="input-xlarge" />
+					<!-- TODO ng-model="model.contact.since"
+							  how do you use ui-date-format? is ui-date attribute, without =, correct? -->
+					<input  ui-date type="text" ng-required="true" id="activesince" class="input-xlarge" />
 					<span class="add-on"><i class="icon-calendar"></i></span>
 				</div>
 			</div>
@@ -57,20 +63,18 @@
 			<label class="control-label" for="age">Age:</label>
 			<div class="controls">
 				<div class="input-append">
-					<input ng-model="age" type="text" ng-required="true" id="age" class="input-xlarge" />
+					<input ng-model="model.contact.age" type="text" ng-required="true" id="age" class="input-xlarge" />
 				</div>
 				<span class="help-inline">If &lt;18, then new field for Parent's Email will show.</span>
 			</div>
 		</div>
 		
-		<!-- TODO age in ng-show="age < 18" below & ng-model above needs to be changed to... model.contact.age? -->
-
-		<div class="control-group" ng-show="age < 18">
+		<div class="control-group" ng-show="model.contact.age < 18">
 			<label class="control-label" for="parentEmail">Parent's Email:</label>
 			<div class="controls">
 				<div class="input-prepend">
 					<span class="add-on"><i class="icon-envelope"></i></span>
-					<input id="parentEmail" type="email" class="input-xlarge" />
+					<input ng-model="model.contact.parentEmail" id="parentEmail" type="email" class="input-xlarge" />
 					<!-- TODO Validation rule for email -->
 				</div>
 			</div>
@@ -78,11 +82,12 @@
 		
 		<div class="control-group">
 			<div class="alert alert-block">
-				<!-- TODO Generator should allow to choose autoSave vs. explicitSave style? -->
-				<!-- Intentionally No SAVE button here... -->
-				<a href="#" class="disabled btn btn-large btn-inverse pull-right">Cancel</a>
+				<!-- Idea: Always auto-save, intentionally No SAVE button here? Generator should allow to choose autoSave vs. explicitSave style? -->
+  				<a ng-click="save()" ng-disabled="isClean() || myForm.$invalid" class="btn btn-large btn-primary">Save</a>
+				<!--<a ng-disabled="true" class="disabled btn btn-large btn-inverse pull-right">Cancel</a>
 				<h4>Saving changes...</h4>
-				<p>Press Cancel to Undo.</p>
+				<p>Press Cancel to Undo.</p>-->
+				<!-- TODO <a ng-click="destroy()" ng-show="model.contact.id" class="btn btn-large btn-danger pull-right">Delete</a> -->
 			</div>
 		</div>
 	</fieldset>
