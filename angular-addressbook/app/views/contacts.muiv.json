@@ -1,0 +1,17 @@
+{
+    "legend": "Contact",
+    "fields": [
+        {
+            "label": "Name:",
+            "model": "model.contact.name",
+            "type": "text",
+            "required": true
+        },
+        {
+            "label": "Email:",
+            "model": "model.contact.email",
+            "type": "email",
+            "required": false
+        }
+    ]
+}
