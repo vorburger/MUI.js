@@ -89,7 +89,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid'])
                         // TODO create a CSS style for centering, and use cellClass & headerClass instead..
                         // TODO should better be <a ui-sref="main.acontact({{row.getProperty(\'id\')}})"> but cannot use that due to: https://github.com/angular-ui/ng-grid/issues/559
                         // Note the hard-coded "/#" - that wouldn't work if we were on HTML5 location mode..
-                        {width: 30, cellTemplate: '<div style="vertical-align: middle; text-align: center;"><a href="/#{{$state.href(\'main.acontact\', {id: row.getProperty(\'id\')})}}"><i style="vertical-align: middle;" class="icon-edit"></i></a></div>' }];
+                        {width: 30, cellTemplate: '<div style="vertical-align: middle; text-align: center;"><a href="#{{$state.href(\'main.acontact\', {id: row.getProperty(\'id\')})}}"><i style="vertical-align: middle;" class="icon-edit"></i></a></div>' }];
     $scope.ui.myGrid = {};
     $scope.ui.myGrid.selections = [];
     $scope.ui.myGrid.options = { data: 'model.contacts', // you can also specify data as: $scope.myGridOptions = { data: $scope.myData }. However, updates to the underlying data will not be reflected in the grid
