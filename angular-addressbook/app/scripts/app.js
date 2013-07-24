@@ -1,10 +1,12 @@
 'use strict';
 
-// angular.module('mui.stores', [])
-// use it below?
+// TODO this is bad, right, because it pollutes the global namespace? check book or other code re. how to do this right..
+function muiReplaceAll(find, replace, str) {
+  return str.replace(new RegExp(find, 'g'), replace);
+}
 
 /*global angular:true*/
-angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid'])
+angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 'ngResource'])
   .factory('ContactsStoreService', function () {
     // TODO read from *.json via $url or $resource or later http://ngmodules.org/modules/restangular
     var allData = [{id: 1, name: 'Moroni', age: 50, email: 'someone@place.org', country: 'Switzerland', phone: '78 837 31 33', since: '05/01/2013'},
@@ -50,7 +52,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid'])
     .state('main', { url: '/main', abstract: true, views: { 'root': { templateUrl: 'views/main.html' }}})
 	.state('main.home', { url: '/home', title: 'Welcome!', views: { 'main-body': { templateUrl: 'views/home.html' }}})
 	.state('main.contacts', { url: '/contacts', title: 'Contacts', views: { 'main-body': { templateUrl: 'views/contacts.html', controller: 'ContactsCtrl' }}})
-	.state('main.acontact', { url: '/contact/{id}', title: 'Edit/Add Contact', views: { 'main-body': { templateUrl: 'views/contact.html', controller: 'AContactCtrl' }}});
+	.state('main.acontact', { url: '/contact/{id}', title: 'Edit/Add Contact', views: { 'main-body': { templateUrl: 'views/meta/simpleform.html', controller: 'AContactCtrl' }}});
 	// note, when gen. later: Alternately (i.e. instead of dot), you can specify the parent of a state via the 'parent' property.
   })
   
@@ -60,13 +62,34 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid'])
     $rootScope.$stateParams = $stateParams;
   })
 
-  .controller('AContactCtrl', function ($scope, $state, $stateParams, ContactsStoreService) {
-    // 1. models
+  .controller('AContactCtrl', function ($scope, $state, $stateParams, ContactsStoreService, $resource) {
+    // 1. data models
     $scope.model = {};
     $scope.model.contact = ContactsStoreService.getContact($stateParams.id);
-    // 2. UI (JS widgets; as opposed to what's in the HTML)
+    // 2. UI models
+    $scope.uimodel = $resource('models/contacts.muiv.json').get({}, function () {
+    // TODO factor this out into a helper function, somehow..
+      var fields = $scope.uimodel.fields;
+      for (var i = 0; i < fields.length; i++) {
+        var resolvedModelProperty = $scope;
+        var remainingPath = fields[i].model;
+        while (remainingPath.indexOf('.') > -1) {
+          var nextPathSlice = remainingPath.substr(0, remainingPath.indexOf('.'));
+          resolvedModelProperty = resolvedModelProperty[nextPathSlice];
+          remainingPath = remainingPath.substr(remainingPath.indexOf('.') + 1);
+        }
+        // TODO keep this derrived info outside original struct! otherwise a pain to edit & write back later..
+        fields[i].modelB = resolvedModelProperty;
+        fields[i].modelL = remainingPath;
+        // Unique ID is required because 'model' (path) cannot be used for <input name> (and ID), as it contains dots, and span ng-show wouldn't work
+        // Unique ID is prefixed by numeric i for the off chance that two fields have same model binding
+        fields[i].uid = i.toString() + muiReplaceAll('\\.', '_', fields[i].model);
+      }
+    });
+
+    // 3. UI (JS widgets; as opposed to what's in the HTML)
     // -- None in this controller
-    // 3. custom action handlers go here.. (MODEL: will probably only allow service call here, no real logic/code)
+    // 4. custom action handlers go here.. (MODEL: will probably only allow service call here, no real logic/code)
     $scope.save = function () {
         ContactsStoreService.put($scope.model.contact);
         $state.transitionTo('main.contacts', {});
@@ -75,20 +98,21 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid'])
   })
 
   .controller('ContactsCtrl', function ($scope, ContactsStoreService) {
-    // 1. models
-    $scope.ui = {};
+    // 1. data models
     $scope.model = {};
-    
     $scope.model.contacts = ContactsStoreService.allContacts();
 
-    // 2. UI (JS widgets; as opposed to what's in the HTML)
+	// 2. UI models
+    $scope.ui = {};
+
+    // 3. UI (JS widgets; as opposed to what's in the HTML)
     // TODO Better.. column chooser, instead showColumnMenu? Def. initially hidden cols, server-side persistence, etc. Wrap that in a new component.. contribute (OSS) as plugin to ng-grid.
     // This allows you to push/pop/splice/reassign column definitions and the changes will be reflected in the grid.
     $scope.myColumns = [{field: 'name', displayName: 'Name'},
                         {field: 'age', displayName: 'Age'},
                         // TODO create a CSS style for centering, and use cellClass & headerClass instead..
                         // TODO should better be <a ui-sref="main.acontact({{row.getProperty(\'id\')}})"> but cannot use that due to: https://github.com/angular-ui/ng-grid/issues/559
-                        // Note the hard-coded "/#" - that wouldn't work if we were on HTML5 location mode..
+                        // Note the hard-coded "#" - that wouldn't work if we were on HTML5 location mode..
                         {width: 30, cellTemplate: '<div style="vertical-align: middle; text-align: center;"><a href="#{{$state.href(\'main.acontact\', {id: row.getProperty(\'id\')})}}"><i style="vertical-align: middle;" class="icon-edit"></i></a></div>' }];
     $scope.ui.myGrid = {};
     $scope.ui.myGrid.selections = [];
@@ -99,7 +123,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid'])
             enableColumnReordering: true, showColumnMenu: true
             // afterSelectionChange: function () { window.alert('yo'); }
             
-    // 3. custom action handlers go here..
+    // 4. custom action handlers go here..
 	// -- None in this controller
     };
   });

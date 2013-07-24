@@ -1,0 +1,31 @@
+<!-- TODO use of fixed name="myForm" probably needs some refinement.. what if two forms on same page?! -->
+<form name="myForm" class="form-horizontal">
+	<fieldset>
+	    <!-- TODO how to show <legend> tag only if uimodel.legend is actually set? -->
+		<legend>{{uimodel.legend}}</legend>
+
+		<!-- TODO use of {{auimodelField.uid}} for id/name/for below probably needs some refinement.. what if two forms on same page?! -->
+		<!-- TODO auimodelField.uid for ng-class & ng-show doesn't actually work bound too late or early or whatever.. how to fix this?! -->
+	    <div ng-repeat="auimodelField in uimodel.fields" class="control-group" ng-class="{error: myForm.{{auimodelField.uid}}.$invalid}">
+	        <label class="control-label" for="{{auimodelField.uid}}">{{auimodelField.label}}</label>
+	        <div class="controls">
+		        <input id="{{auimodelField.uid}}" name="{{auimodelField.uid}}" ng-model="auimodelField.modelB[auimodelField.modelL]" type="{{auimodelField.type}}" required class="input-xlarge" />
+		        <span ng-show="myForm.{{auimodelField.uid}}.$error.required" class="help-inline">Required</span>
+			</div>
+	    </div>
+
+		<!-- TODO some more stuff from contacts.html... -->
+
+		<div class="control-group">
+			<div class="alert alert-block">
+				<!-- Idea: Always auto-save, intentionally No SAVE button here? Generator should allow to choose autoSave vs. explicitSave style? -->
+  				<a ng-click="save()" ng-disabled="isClean() || myForm.$invalid" class="btn btn-large btn-primary">Save</a>
+				<!--<a ng-disabled="true" class="disabled btn btn-large btn-inverse pull-right">Cancel</a>
+				<h4>Saving changes...</h4>
+				<p>Press Cancel to Undo.</p>-->
+				<!-- TODO <a ng-click="destroy()" ng-show="model.contact.id" class="btn btn-large btn-danger pull-right">Delete</a> -->
+			</div>
+		</div>
+
+	</fieldset>
+</form>
