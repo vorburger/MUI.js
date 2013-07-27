@@ -13,6 +13,26 @@
             "type": "email",
             "required": false,
             "prefix": { "glyphicon": "envelope" }
+        },
+        {
+            "label": "Fone:",
+            "model": "model.contact.phone",
+            "type": "text",
+            "required": false,
+            "prefix": {  }
+        },
+        {
+            "label": "Age:",
+            "model": "model.contact.age",
+            "type": "number",
+            "required": false
+        },
+        {
+            "label": "Parent's Email:",
+            "model": "model.contact.parentEmail",
+            "type": "email",
+            "required": false,
+            "prefix": { "glyphicon": "envelope" }
         }
     ]
 }

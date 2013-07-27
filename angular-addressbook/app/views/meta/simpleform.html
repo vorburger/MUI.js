@@ -17,6 +17,7 @@
                         <input id="{{$index + 1}}" name="thisfield" ng-model="auimodelField.modelB[auimodelField.modelL]" type="{{auimodelField.type}}" required class="input-xlarge" />
                         <span ng-show="myForm.thisfield.$error.required" class="help-inline">Required</span>
                         <span ng-show="myForm.thisfield.$error.email" class="help-inline">Not an Email</span>
+                        <span ng-show="myForm.thisfield.$error.number" class="help-inline">Not a Number</span>
                         <!-- NOTE: name="thisfield", for ALL input, is actually correct & works. -->
                     </div>
                 </div>
@@ -24,6 +25,8 @@
         </div>
 
         <!-- TODO some more stuff from contacts.html... -->
+
+        <!-- TODO Multi-Value address line à la https://bootsnipp.com/snipps/dynamic-form-fields -->
 
         <div class="control-group">
             <div class="alert alert-block">
