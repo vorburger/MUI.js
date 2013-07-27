@@ -4,8 +4,8 @@
         <legend ng-if="uimodel.legend">{{uimodel.legend}}</legend>
 
         <!-- TODO use of {{$index + 1}} as id/label-for might need some refinement.. what if two forms on same page?! What about sensible stable IDs for WebDriver-like UI testing? -->
-        <!-- TODO ng-show causes "Token 'undefined' not a primary expression"... @see http://stackoverflow.com/questions/17901054/angularjs-expression-why-not-lazily-evaluated-causing-token-undefined-not-a -->
-        <div ng-repeat="auimodelField in uimodel.fields" class="control-group" ng-class="{error: myForm.thisfield.$invalid}" ng-show="!auimodelField.showOnlyIf || {{auimodelField.showOnlyIf}}">
+        <!-- ACK The || false trick below to avoid ng-show causing a "Token 'undefined' not a primary expression" is thanks to http://stackoverflow.com/questions/17901054/angularjs-expression-why-not-lazily-evaluated-causing-token-undefined-not-a -->
+        <div ng-repeat="auimodelField in uimodel.fields" class="control-group" ng-class="{error: myForm.thisfield.$invalid}" ng-show="!auimodelField.showOnlyIf || {{auimodelField.showOnlyIf || false}}">
             <ng-form name="myForm">
                 <label class="control-label" ng-class="{required: auimodelField.required}" for="{{$index + 1}}">{{auimodelField.label}}</label>
                 <div class="controls">
