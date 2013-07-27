@@ -48,6 +48,8 @@ $ scripted from https://github.com/scripted-editor/scripted/ is great! Just:
 
 * AngularJS Chrome extension plug-in; nice! https://github.com/angular/angularjs-batarang
 
+* JetBrains WebStorm built-in web server: http://localhost:63342/angular-addressbook/app/index.html#/main/contacts
+
 
 Code
 ----
