@@ -1,35 +1,35 @@
 <!-- TODO use of fixed name="myForm" probably needs some refinement.. what if two forms on same page?! -->
 <form name="myForm" class="form-horizontal">
-	<fieldset>
-	    <!-- TODO how to show <legend> tag only if uimodel.legend is actually set? -->
-		<legend>{{uimodel.legend}}</legend>
+    <fieldset>
+        <!-- TODO how to show <legend> tag only if uimodel.legend is actually set? -->
+        <legend>{{uimodel.legend}}</legend>
 
-		<!-- TODO use of {{$index + 1}} as id/label-for might need some refinement.. what if two forms on same page?! What about sensible stable IDs for WebDriver-like UI testing? -->
+        <!-- TODO use of {{$index + 1}} as id/label-for might need some refinement.. what if two forms on same page?! What about sensible stable IDs for WebDriver-like UI testing? -->
         <!-- TODO type doesn't actually work (try changing to hard-coded type="email" and it would) -->
-	    <div ng-repeat="auimodelField in uimodel.fields" class="control-group" ng-class="{error: myForm.thisfield.$invalid}">
+        <div ng-repeat="auimodelField in uimodel.fields" class="control-group" ng-class="{error: myForm.thisfield.$invalid}">
             <ng-form name="myForm">
-	        <label class="control-label" for="{{$index + 1}}">{{auimodelField.label}}</label>
-	        <div class="controls">
-		        <input id="{{$index + 1}}" name="thisfield" ng-model="auimodelField.modelB[auimodelField.modelL]" type="{{auimodelField.type}}" required class="input-xlarge" />
-		        <span ng-show="myForm.thisfield.$error.required" class="help-inline">Required</span>
-                <span ng-show="myForm.thisfield.$error.email" class="help-inline">Not an Email</span>
-                <!-- NOTE: name="thisfield", for ALL input, is actually correct & works. -->
-			</div>
+                <label class="control-label" for="{{$index + 1}}">{{auimodelField.label}}</label>
+                <div class="controls">
+                    <input id="{{$index + 1}}" name="thisfield" ng-model="auimodelField.modelB[auimodelField.modelL]" type="{{auimodelField.type}}" required class="input-xlarge" />
+                    <span ng-show="myForm.thisfield.$error.required" class="help-inline">Required</span>
+                    <span ng-show="myForm.thisfield.$error.email" class="help-inline">Not an Email</span>
+                    <!-- NOTE: name="thisfield", for ALL input, is actually correct & works. -->
+                </div>
             </ng-form>
-	    </div>
+        </div>
 
-		<!-- TODO some more stuff from contacts.html... -->
+        <!-- TODO some more stuff from contacts.html... -->
 
-		<div class="control-group">
-			<div class="alert alert-block">
-				<!-- Idea: Always auto-save, intentionally No SAVE button here? Generator should allow to choose autoSave vs. explicitSave style? -->
-  				<a ng-click="save()" ng-disabled="isClean() || myForm.$invalid" class="btn btn-large btn-primary">Save</a>
-				<!--<a ng-disabled="true" class="disabled btn btn-large btn-inverse pull-right">Cancel</a>
-				<h4>Saving changes...</h4>
-				<p>Press Cancel to Undo.</p>-->
-				<!-- TODO <a ng-click="destroy()" ng-show="model.contact.id" class="btn btn-large btn-danger pull-right">Delete</a> -->
-			</div>
-		</div>
+        <div class="control-group">
+            <div class="alert alert-block">
+                <!-- Idea: Always auto-save, intentionally No SAVE button here? Generator should allow to choose autoSave vs. explicitSave style? -->
+                <a ng-click="save()" ng-disabled="isClean() || myForm.$invalid" class="btn btn-large btn-primary">Save</a>
+                <!--<a ng-disabled="true" class="disabled btn btn-large btn-inverse pull-right">Cancel</a>
+                <h4>Saving changes...</h4>
+                <p>Press Cancel to Undo.</p>-->
+                <!-- TODO <a ng-click="destroy()" ng-show="model.contact.id" class="btn btn-large btn-danger pull-right">Delete</a> -->
+            </div>
+        </div>
 
-	</fieldset>
+    </fieldset>
 </form>
