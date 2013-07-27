@@ -4,14 +4,18 @@
 	    <!-- TODO how to show <legend> tag only if uimodel.legend is actually set? -->
 		<legend>{{uimodel.legend}}</legend>
 
-		<!-- TODO use of {{auimodelField.uid}} for id/name/for below probably needs some refinement.. what if two forms on same page?! -->
-		<!-- TODO auimodelField.uid for ng-class & ng-show doesn't actually work bound too late or early or whatever.. how to fix this?! -->
-	    <div ng-repeat="auimodelField in uimodel.fields" class="control-group" ng-class="{error: myForm.{{auimodelField.uid}}.$invalid}">
-	        <label class="control-label" for="{{auimodelField.uid}}">{{auimodelField.label}}</label>
+		<!-- TODO use of {{$index + 1}} as id/label-for might need some refinement.. what if two forms on same page?! What about sensible stable IDs for WebDriver-like UI testing? -->
+        <!-- TODO type doesn't actually work (try changing to hard-coded type="email" and it would) -->
+	    <div ng-repeat="auimodelField in uimodel.fields" class="control-group" ng-class="{error: myForm.thisfield.$invalid}">
+            <ng-form name="myForm">
+	        <label class="control-label" for="{{$index + 1}}">{{auimodelField.label}}</label>
 	        <div class="controls">
-		        <input id="{{auimodelField.uid}}" name="{{auimodelField.uid}}" ng-model="auimodelField.modelB[auimodelField.modelL]" type="{{auimodelField.type}}" required class="input-xlarge" />
-		        <span ng-show="myForm.{{auimodelField.uid}}.$error.required" class="help-inline">Required</span>
+		        <input id="{{$index + 1}}" name="thisfield" ng-model="auimodelField.modelB[auimodelField.modelL]" type="{{auimodelField.type}}" required class="input-xlarge" />
+		        <span ng-show="myForm.thisfield.$error.required" class="help-inline">Required</span>
+                <span ng-show="myForm.thisfield.$error.email" class="help-inline">Not an Email</span>
+                <!-- NOTE: name="thisfield", for ALL input, is actually correct & works. -->
 			</div>
+            </ng-form>
 	    </div>
 
 		<!-- TODO some more stuff from contacts.html... -->
