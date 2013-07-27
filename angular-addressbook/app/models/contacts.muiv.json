@@ -33,7 +33,7 @@
             "type": "email",
             "required": false,
             "prefix": { "glyphicon": "envelope" },
-            "showOnlyIf" : "model.contact.age < 18"
+            "showOnlyIf" : "model.contact.age != undefined && model.contact.age < 18"
         }
     ]
 }

@@ -15,7 +15,7 @@
                          instead use ng-class. Disadvantage is that div will always be there, possibly without class, but that doesn't really matter. -->
                     <div ng-class="{'input-prepend': auimodelField.prefix}">
                         <span ng-if="auimodelField.prefix" class="add-on"><i class="icon-{{ auimodelField.prefix.glyphicon }}"></i></span>
-                        <input id="{{$index + 1}}" name="thisfield" ng-model="auimodelField.modelB[auimodelField.modelL]" type="{{auimodelField.type}}" required class="input-xlarge" />
+                        <input id="{{$index + 1}}" name="thisfield" ng-model="auimodelField.modelB[auimodelField.modelL]" type="{{auimodelField.type}}" ng-required="{{auimodelField.required}}" class="input-xlarge" />
                         <span ng-show="myForm.thisfield.$error.required" class="help-inline">Required</span>
                         <span ng-show="myForm.thisfield.$error.email" class="help-inline">Not an Email</span>
                         <span ng-show="myForm.thisfield.$error.number" class="help-inline">Not a Number</span>
