@@ -4,7 +4,6 @@
         <legend ng-if="uimodel.legend">{{uimodel.legend}}</legend>
 
         <!-- TODO use of {{$index + 1}} as id/label-for might need some refinement.. what if two forms on same page?! What about sensible stable IDs for WebDriver-like UI testing? -->
-        <!-- TODO type doesn't actually work (try changing to hard-coded type="email" and it would) -->
         <!-- TODO ng-show causes "Token 'undefined' not a primary expression"... @see http://stackoverflow.com/questions/17901054/angularjs-expression-why-not-lazily-evaluated-causing-token-undefined-not-a -->
         <div ng-repeat="auimodelField in uimodel.fields" class="control-group" ng-class="{error: myForm.thisfield.$invalid}" ng-show="!auimodelField.showOnlyIf || {{auimodelField.showOnlyIf}}">
             <ng-form name="myForm">
@@ -13,14 +12,15 @@
                     <!-- cannot use <div ng-if="auimodelField.prefix" class="input-prepend"> here,
                          because that removes the entire DIV incl. content, not just this div tag! :-(
                          instead use ng-class. Disadvantage is that div will always be there, possibly without class, but that doesn't really matter. -->
-                    <div ng-class="{'input-prepend': auimodelField.prefix}">
+                    <div ng-class="{'input-prepend': auimodelField.prefix}" class="div-inline-block">
                         <span ng-if="auimodelField.prefix" class="add-on"><i class="icon-{{ auimodelField.prefix.glyphicon }}"></i></span>
                         <input id="{{$index + 1}}" name="thisfield" ng-model="auimodelField.modelB[auimodelField.modelL]" type="{{auimodelField.type}}" ng-required="{{auimodelField.required}}" class="input-xlarge" />
-                        <span ng-show="myForm.thisfield.$error.required" class="help-inline">Required</span>
-                        <span ng-show="myForm.thisfield.$error.email" class="help-inline">Not an Email</span>
-                        <span ng-show="myForm.thisfield.$error.number" class="help-inline">Not a Number</span>
-                        <!-- NOTE: name="thisfield", for ALL input, is actually correct & works. -->
                     </div>
+                    <!-- NOTE: input-prepend has a font-size: 0, so any <span> etc. has to be outside! -->
+                    <span ng-show="myForm.thisfield.$error.required" class="help-inline">Required</span>
+                    <span ng-show="myForm.thisfield.$error.email" class="help-inline">Not an Email</span>
+                    <span ng-show="myForm.thisfield.$error.number" class="help-inline">Not a Number</span>
+                    <!-- NOTE: name="thisfield", for ALL input, is actually correct & works. -->
                 </div>
             </ng-form>
         </div>

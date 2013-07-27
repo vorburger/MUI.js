@@ -6,3 +6,7 @@
     content:"*";
     color: red;
 }
+
+div.div-inline-block {
+    display: inline-block;
+}
