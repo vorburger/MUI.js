@@ -1,8 +1,6 @@
 {
-  "name": "angular-scenario",
-  "version": "1.0.7",
-  "main": "./angular-scenario.js",
-  "dependencies": {
-    "angular": "1.0.7"
+  "name" : "AngularJS",
+  "version" : "1.1.5",
+  "dependencies" : {
   }
 }
