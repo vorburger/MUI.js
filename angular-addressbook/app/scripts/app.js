@@ -10,7 +10,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
   .factory('ContactsStoreService', function () {
     // TODO read from *.json via $url or $resource or later http://ngmodules.org/modules/restangular
     var allData = [{id: 1, name: 'Moroni', age: 50, email: 'someone@place.org', country: 'Switzerland', phone: '78 837 31 33', since: '05/01/2013'},
-                     {id: 2, name: 'Teancum', age: 43},
+                     {id: 2, name: 'Teancum', age: 4},
                      {id: 3, name: 'Jacob', age: 27},
                      {id: 4, name: 'Nephi', age: 29},
                      {id: 5, name: 'Enos', age: 34}];
