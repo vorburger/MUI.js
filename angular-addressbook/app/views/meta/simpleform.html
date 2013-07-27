@@ -8,7 +8,7 @@
         <!-- TODO ng-show causes "Token 'undefined' not a primary expression"... @see http://stackoverflow.com/questions/17901054/angularjs-expression-why-not-lazily-evaluated-causing-token-undefined-not-a -->
         <div ng-repeat="auimodelField in uimodel.fields" class="control-group" ng-class="{error: myForm.thisfield.$invalid}" ng-show="!auimodelField.showOnlyIf || {{auimodelField.showOnlyIf}}">
             <ng-form name="myForm">
-                <label class="control-label" for="{{$index + 1}}">{{auimodelField.label}}</label>
+                <label class="control-label" ng-class="{required: auimodelField.required}" for="{{$index + 1}}">{{auimodelField.label}}</label>
                 <div class="controls">
                     <!-- cannot use <div ng-if="auimodelField.prefix" class="input-prepend"> here,
                          because that removes the entire DIV incl. content, not just this div tag! :-(

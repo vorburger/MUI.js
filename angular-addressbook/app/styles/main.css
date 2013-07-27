@@ -1,3 +1,12 @@
+.control-label.required {
+    font-weight: bold;
+}
+
+.control-label.required:after {
+    content:"*";
+    color: red;
+}
+
 body {
     background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
