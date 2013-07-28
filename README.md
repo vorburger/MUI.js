@@ -23,7 +23,7 @@ it may be used with any of them.
 Support
 ---
 
-Support the development of MUI.js <a href="https://www.gittip.com/vorburger/">with a GitTip</a>: <iframe style="border: 0; margin: 0; padding: 0;" src="https://www.gittip.com/vorburger/widget.html" width="48pt" height="22pt"></iframe>
+Support the development of MUI.js <a href="https://www.gittip.com/vorburger/">with a GitTip</a> <iframe style="border: 0; margin: 0; padding: 0;" src="https://www.gittip.com/vorburger/widget.html" width="48pt" height="22pt"></iframe>
 
   
 JS Dev - Lessons Learnt, Tips & Tricks
