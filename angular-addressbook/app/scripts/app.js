@@ -27,7 +27,7 @@ function addFieldsModelDerrivedState(fields, base) {
 }
 
 /*global angular:true*/
-angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 'ngResource'])
+angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 'ngResource', 'contenteditable'])
   .factory('ModelRespositoryService', function () {
     var newModelRespositoryService = {};
     newModelRespositoryService.getModel = function(modelNamePath) {

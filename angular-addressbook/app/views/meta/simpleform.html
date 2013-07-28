@@ -7,7 +7,10 @@
         <!-- ACK The || false trick below to avoid ng-show causing a "Token 'undefined' not a primary expression" is thanks to http://stackoverflow.com/questions/17901054/angularjs-expression-why-not-lazily-evaluated-causing-token-undefined-not-a -->
         <div ng-repeat="auimodelField in uimodel.fields" class="control-group" ng-class="{error: myForm.thisfield.$invalid}" ng-show="!auimodelField.showOnlyIf || {{auimodelField.showOnlyIf || false}}">
             <ng-form name="myForm">
-                <label class="control-label" ng-class="{required: auimodelField.required}" for="{{$index + 1}}">{{auimodelField.label}}</label>
+                <label class="control-label" ng-class="{required: auimodelField.required}"
+                       contenteditable="true" ng-model="auimodelField.label"></label>
+                <!-- TODO contenteditable keep loosing focus after each character, because DOM is redrawn.. need to remember focus and cursor position and set it again! -->
+                <!-- TODO for="{{$index + 1}}" used in prod to be re-activated; contenteditable only active when mui.designer.enabled -->
                 <div class="controls">
                     <!-- cannot use <div ng-if="auimodelField.prefix" class="input-prepend"> here,
                          because that removes the entire DIV incl. content, not just this div tag! :-(
