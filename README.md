@@ -18,6 +18,12 @@ and Xtext for a UI Model DSL, plus some Data Binding dabblings I engaged in duri
 MUI.JS Core should remain as independent as possible from JS frameworks 
 (e.g. jQuery or YUI or qooxdoo etc.) & ecosystems (e.g. Node.js), so that
 it may be used with any of them.
+
+
+Support
+---
+
+Support the development of MUI.js with a GitTip: <iframe style="border: 0; margin: 0; padding: 0;" src="https://www.gittip.com/vorburger/widget.html" width="48pt" height="22pt"></iframe>
  
  
 JS Dev - Lessons Learnt, Tips & Tricks
