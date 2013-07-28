@@ -36,11 +36,15 @@ div.splitter-vbar {
     user-select: none;
 
     z-index: 100;
-    width: 5px;
+    width: 8px;
     background-color: #696969;
 
     position: absolute;
     height: 100%;
+
+    padding: 5px 0;
+    background: url(../img/handle-v.png) 3px 50% no-repeat;
+
 }
 
 .fill {
