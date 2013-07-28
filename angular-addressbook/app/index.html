@@ -29,7 +29,24 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ui-view="root"></div>
+
+    <!-- TODO show this conditionally only if global scope mui.designer(.enabled) -->
+    <!-- TODO enable DnD for splitter.. persist it. -->
+    <!-- TODO make this a 'splitter' directive? -->
+<!--
+    <div ng-controller="MUI">
+        <div class="splitter-left-panel" style="left: 0px; width: {{ mui.designer.preferences.lhsPanelWidth }}px;">
+            <textarea class="fill" ng-model="uimodel" json ></textarea>
+        </div>
+        <div class="splitter-vbar" style="left: {{ mui.designer.preferences.lhsPanelWidth + 1 }}px;" unselectable="on" ></div>
+        <div class="splitter-right-panel" style="left: {{ mui.designer.preferences.lhsPanelWidth + 10 }}px; margin-left: 20px">
+            <div class="container" ui-view="root"></div>
+        </div>
+    </div>
+
+--> <div>
+        <div  ui-view="root"></div>
+    </div>
 
     <!-- BEWARE: The order in which *.js are listed / included below is VERY important! -->
 
@@ -67,5 +84,6 @@
     <!--<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>-->
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <!-- endbuild -->
-</body>
+
+  </body>
 </html>

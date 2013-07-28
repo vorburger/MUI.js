@@ -7,6 +7,17 @@ function muiReplaceAll(find, replace, str) {
 
 /*global angular:true*/
 angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 'ngResource'])
+  .factory('ModelRespositoryService', function () {
+    var newModelRespositoryService = {};
+    newModelRespositoryService.getModel = function(modelNamePath) {
+
+    };
+    newModelRespositoryService.getActiveModels = function() {
+
+    };
+    return newModelRespositoryService;
+  })
+
   .factory('ContactsStoreService', function () {
     // TODO read from *.json via $url or $resource or later http://ngmodules.org/modules/restangular
     var allData = [{id: 1, name: 'Moroni', age: 50, email: 'someone@place.org', country: 'Switzerland', phone: '78 837 31 33', since: '05/01/2013'},
@@ -63,13 +74,22 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
     $rootScope.$stateParams = $stateParams;
   })
 
-  .controller('AContactCtrl', function ($scope, $state, $stateParams, ContactsStoreService, $resource) {
+  .controller('MUI', function ($rootScope) {
+        $rootScope.mui = {};
+        $rootScope.mui.designer = {};
+        $rootScope.mui.designer.preferences = { "lhsPanelWidth": 300 };
+        $rootScope.mui.designer.uimodel = {};
+  })
+
+  .controller('AContactCtrl', function ($scope, $state, $stateParams, ContactsStoreService, $resource, $rootScope) {
     // 1. data models
     $scope.model = {};
     $scope.model.contact = ContactsStoreService.getContact($stateParams.id);
     // 2. UI models
     $scope.uimodel = $resource('models/contacts.muiv.json').get({}, function () {
-    // TODO factor this out into a helper function, somehow..
+      // $rootScope.mui.designer.uimodel = $scope.uimodel; // hm.. how to better? what if several on a page?!?
+
+      // TODO factor this out into a helper function, somehow..
       var fields = $scope.uimodel.fields;
       for (var i = 0; i < fields.length; i++) {
         var resolvedModelProperty = $scope;
@@ -165,5 +185,14 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
                 }, true); // MUST use objectEquality (true) here, for some reason..
             }
         };
-    });
+    })
 
+ /* .directive('splitter', function() {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                // $(element).split(scope.$eval(attrs.splitter));
+            }
+        };
+    }) */
+;

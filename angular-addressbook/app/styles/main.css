@@ -10,3 +10,65 @@
 div.div-inline-block {
     display: inline-block;
 }
+
+div.splitter-left-panel {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    /* -webkit-user-select: text; */
+}
+
+div.splitter-right-panel {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+}
+
+div.splitter-vbar {
+    cursor: col-resize;
+
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+
+    /* Rules below not implemented in browsers yet */
+    -o-user-select: none;
+    user-select: none;
+
+    z-index: 100;
+    width: 5px;
+    background-color: #696969;
+
+    position: absolute;
+    height: 100%;
+}
+
+.fill {
+    width: inherit;
+    height: inherit;
+}
+
+textarea.fill {
+    resize: none;
+
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+/* ;-) */
+
+@keyframes blink {
+    0% { color: red; }
+    100% { color: black; }
+}
+@-webkit-keyframes blink {
+    0% { color: red; }
+    100% { color: black; }
+}
+.blink {
+    -webkit-animation: blink 0.7s linear infinite;
+    -moz-animation: blink 0.7s linear infinite;
+    -ms-animation: blink 0.7s linear infinite;
+    -o-animation: blink 0.7s linear infinite;
+    animation: blink 0.7s linear infinite;
+}
