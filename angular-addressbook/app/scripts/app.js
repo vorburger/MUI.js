@@ -41,16 +41,16 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
 
   .factory('ContactsStoreService', function () {
     // TODO read from *.json via $url or $resource or later http://ngmodules.org/modules/restangular
-    var allData = [{id: 1, name: 'Moroni', age: 50, email: 'someone@place.org', country: 'Switzerland', phone: '78 837 31 33', since: '05/01/2013'},
-                     {id: 2, name: 'Teancum', age: 4},
-                     {id: 3, name: 'Jacob', age: 27},
-                     {id: 4, name: 'Nephi', age: 29},
-                     {id: 5, name: 'Enos', age: 34}];
+    var allData = [{id: 1, name: 'Jack', age: 50, email: 'someone@place.org', country: 'Switzerland', phone: '78 837 31 33', since: '05/01/2013'},
+                     {id: 2, name: 'Jill', age: 4},
+                     {id: 3, name: 'Anna', age: 27},
+                     {id: 4, name: 'Philippe', age: 29},
+                     {id: 5, name: 'Leana', age: 34}];
     var indexedData = {};
     for (var i = 0; i < allData.length; i++) {
 	    indexedData[allData[i].id] = allData[i];
     }
-    
+
     var newContactsStoreService = {};
     // TODO Generic Store API... "Contact" as arg, not in func name.. switchable
     // TODO Date String formats?!?
@@ -70,10 +70,10 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
       };
     return newContactsStoreService;
   })
-  
+
   .config(function ($stateProvider, $urlRouterProvider) {
     // TODO how to read this configuration from a app.js.routes.json? (which will be slower.. how to inline it again, later?)
-  
+
     // For any unmatched url, or when there is no when there is no route, send to default state URL
     $urlRouterProvider.otherwise('/main/home');
     $urlRouterProvider.when('', '/main/home');
@@ -88,7 +88,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
     .state('main.acontactGen', { url: '/contact/GenForm/{id}', title: 'Edit/Add Contact', views: { 'main-body': { templateUrl: 'views/meta/simpleform.html', controller: 'AContactCtrl' }}});
 	// note, when gen. later: Alternately (i.e. instead of dot), you can specify the parent of a state via the 'parent' property.
   })
-  
+
   // https://github.com/angular-ui/ui-router/wiki/Quick-Reference#note-about-using-state-within-a-template
   .run(function ($rootScope, $state, $stateParams) {
     $rootScope.$state = $state;
@@ -150,7 +150,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
             enableRowSelection: true, multiSelect: false,
             enableColumnReordering: true, showColumnMenu: true
             // afterSelectionChange: function () { window.alert('yo'); }
-            
+
     // 4. custom action handlers go here..
 	// -- None in this controller
     };
