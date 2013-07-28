@@ -102,9 +102,10 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
         // TODO keep this derrived info outside original struct! otherwise a pain to edit & write back later..
         fields[i].modelB = resolvedModelProperty;
         fields[i].modelL = remainingPath;
+
         // Unique ID is required because 'model' (path) cannot be used for <input name> (and ID), as it contains dots, and span ng-show wouldn't work
         // Unique ID is prefixed by numeric i for the off chance that two fields have same model binding
-        fields[i].uid = i.toString() + muiReplaceAll('\\.', '_', fields[i].model);
+        // NOT USED fields[i].uid = i.toString() + muiReplaceAll('\\.', '_', fields[i].model);
       }
     });
 
