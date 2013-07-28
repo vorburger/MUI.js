@@ -5,6 +5,27 @@ function muiReplaceAll(find, replace, str) {
   return str.replace(new RegExp(find, 'g'), replace);
 }
 
+// TODO this helper ultimately shouldn't be a global function, but I don't quite know where to put it, yet..
+function addFieldsModelDerrivedState(fields, base) {
+    for (var i = 0; i < fields.length; i++) {
+        var resolvedModelProperty = base;
+        if (!fields[i].model)
+            return; // if undefined, which can happen during live editing, just return
+        var remainingPath = fields[i].model;
+        while (remainingPath.indexOf('.') > -1) {
+            var nextPathSlice = remainingPath.substr(0, remainingPath.indexOf('.'));
+            resolvedModelProperty = resolvedModelProperty[nextPathSlice];
+            remainingPath = remainingPath.substr(remainingPath.indexOf('.') + 1);
+        }
+        fields[i].$modelB = resolvedModelProperty;
+        fields[i].$modelL = remainingPath;
+
+        // Unique ID is required because 'model' (path) cannot be used for <input name> (and ID), as it contains dots, and span ng-show wouldn't work
+        // Unique ID is prefixed by numeric i for the off chance that two fields have same model binding
+        // NOT USED fields[i].uid = i.toString() + muiReplaceAll('\\.', '_', fields[i].model);
+    }
+}
+
 /*global angular:true*/
 angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 'ngResource'])
   .factory('ModelRespositoryService', function () {
@@ -90,23 +111,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
       // $rootScope.mui.designer.uimodel = $scope.uimodel; // hm.. how to better? what if several on a page?!?
 
       // TODO factor this out into a helper function, somehow..
-      var fields = $scope.uimodel.fields;
-      for (var i = 0; i < fields.length; i++) {
-        var resolvedModelProperty = $scope;
-        var remainingPath = fields[i].model;
-        while (remainingPath.indexOf('.') > -1) {
-          var nextPathSlice = remainingPath.substr(0, remainingPath.indexOf('.'));
-          resolvedModelProperty = resolvedModelProperty[nextPathSlice];
-          remainingPath = remainingPath.substr(remainingPath.indexOf('.') + 1);
-        }
-        // TODO keep this derrived info outside original struct! otherwise a pain to edit & write back later..
-        fields[i].modelB = resolvedModelProperty;
-        fields[i].modelL = remainingPath;
-
-        // Unique ID is required because 'model' (path) cannot be used for <input name> (and ID), as it contains dots, and span ng-show wouldn't work
-        // Unique ID is prefixed by numeric i for the off chance that two fields have same model binding
-        // NOT USED fields[i].uid = i.toString() + muiReplaceAll('\\.', '_', fields[i].model);
-      }
+      addFieldsModelDerrivedState($scope.uimodel.fields, $scope);
     });
 
     // 3. UI (JS widgets; as opposed to what's in the HTML)
@@ -162,8 +167,11 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
                     if (!text || text.trim() === '')
                         return {}
                     else
-                    // TODO catch SyntaxError, and set validation error..
-                        return angular.fromJson(text);
+                        // TODO catch SyntaxError, and set validation error..
+                        var obj = angular.fromJson(text);
+                        // TODO not ideal that this specific behaviour is hard-coded in this generic directive.. how to best do differently?
+                        addFieldsModelDerrivedState(obj.fields, scope);
+                        return obj;
                 }
 
                 function toUser(object) {
