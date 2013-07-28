@@ -19,7 +19,9 @@
                     <!-- NOTE: input-prepend has a font-size: 0, so any <span> etc. has to be outside! -->
                     <span ng-show="myForm.thisfield.$error.required" class="help-inline">Required</span>
                     <span ng-show="myForm.thisfield.$error.email" class="help-inline">Not a valid Email</span>
-                    <!-- There are some cross-browser issues (e.g. OK in FF, NOK in Chrome v28) with input type="number" validation.. @see https://github.com/angular/angular.js/issues/2144, and http://plnkr.co/edit/q0HmACwbyYMioat0oRSv for a possible work-around -->
+                    <!-- There are some cross-browser issues (e.g. OK in FF, NOK in Chrome v28) with input type="number" validation.. @see https://github.com/angular/angular.js/issues/2144, and http://plnkr.co/edit/q0HmACwbyYMioat0oRSv for a possible work-around
+                         For real-world, you'd probably very soon define custom validator, a la http://docs.angularjs.org/guide/forms ..
+                    -->
                     <span ng-show="myForm.thisfield.$error.number" class="help-inline">Not a Number</span>
                     <!-- NOTE: name="thisfield", for ALL input, is actually correct & works. -->
                 </div>
@@ -44,4 +46,5 @@
     </fieldset>
 </form>
 
-<!-- <textarea ng-model="uimodel | json" /> -->
+<!-- TODO styling.. make this wider! somehow CSS overrides my cols="80"... -->
+<textarea cols="80" rows="5" ng-model="uimodel" json />
