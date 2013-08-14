@@ -83,7 +83,8 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
     $stateProvider // nota bene: better to NOT (ever) use just url: '/' !
     .state('main', { url: '/main', abstract: true, views: { 'root': { templateUrl: 'views/main.html' }}})
 	.state('main.home', { url: '/home', title: 'Welcome!', views: { 'main-body': { templateUrl: 'views/home.html' }}})
-	.state('main.contacts', { url: '/contacts', title: 'Contacts', views: { 'main-body': { templateUrl: 'views/contacts.html', controller: 'ContactsCtrl' }}})
+	.state('main.contactsAng', { url: '/contacts', title: 'Contacts', views: { 'main-body': { templateUrl: 'views/contacts.html', controller: 'ContactsCtrlClassic' }}})
+    .state('main.contactsGen', { url: '/contactsMUI', title: 'Contacts', views: { 'main-body': { templateUrl: 'views/meta/datagrid.html', controller: 'ContactsCtrlMUI' }}})
 	.state('main.acontactHTML', { url: '/contact/HTMLTemplate/{id}', title: 'Edit/Add Contact', views: { 'main-body': { templateUrl: 'views/contact.html', controller: 'AContactCtrl' }}})
     .state('main.acontactGen', { url: '/contact/GenForm/{id}', title: 'Edit/Add Contact', views: { 'main-body': { templateUrl: 'views/meta/simpleform.html', controller: 'AContactCtrl' }}});
 	// note, when gen. later: Alternately (i.e. instead of dot), you can specify the parent of a state via the 'parent' property.
@@ -106,17 +107,14 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
     // 1. data models
     $scope.model = {};
     $scope.model.contact = ContactsStoreService.getContact($stateParams.id);
-    // 2. UI models
-    $scope.uimodel = $resource('models/contacts.muiv.json').get({}, function () {
+    // 2. UI models (JS widgets; as opposed to what's in the HTML) -- no programmatic widgets here, just dynamic meta view
+    $scope.uimodel = $resource('models/contact-form.muiv.json').get({}, function () {
       // $rootScope.mui.designer.uimodel = $scope.uimodel; // hm.. how to better? what if several on a page?!?
-
       // TODO factor this out into a helper function, somehow..
       addFieldsModelDerrivedState($scope.uimodel.fields, $scope);
     });
 
-    // 3. UI (JS widgets; as opposed to what's in the HTML)
-    // -- None in this controller
-    // 4. custom action handlers go here.. (MODEL: will probably only allow service call here, no real logic/code)
+    // 3. custom action handlers go here.. (MODEL: will probably only allow service call here, no real logic/code)
     $scope.save = function () {
         ContactsStoreService.put($scope.model.contact);
         $state.transitionTo('main.contacts', {});
@@ -124,15 +122,66 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
 	// TBD build another example of a custom click handler here.. e.g. sendSMS()? ;) impl: just log!
   })
 
-  .controller('ContactsCtrl', function ($scope, ContactsStoreService) {
+  .controller('ContactsCtrlMUI', function ($scope, ContactsStoreService, $resource) {
+        // 1. data models
+        $scope.model = {};
+        $scope.model.contacts = ContactsStoreService.allContacts();
+
+        // 2. UI models (incl. JS widgets; as opposed to what's in the HTML)
+        $scope.ui = {};
+        $scope.ui.gen = {};
+        $scope.ui.gen.grid = {};
+        $scope.ui.gen.grid.options = { columnDefs: 'ui.gen.grid.columns' };
+        // TODO one problem with this approach is that the list (grid) is first rendered with all columns.. and then redrawn with what's configured here after load of the JSON uimodel
+        // TODO review this later.. contrary to the simpleform, this is probably NOT causing a 2-way binding.. so you couldn't edit the uimodel JSON in-browser for the Grid, yet.
+        $scope.uimodel = $resource('models/contacts.muiv.json').get({}, function () {
+            $scope.ui.gen.grid.columns = [];
+            var columns = $scope.uimodel.columns;
+            for (var iCol = 0; iCol < columns.length; iCol++) {
+                var uimodel = columns[iCol];
+                var column = {};
+                column.displayName = uimodel.label;
+                column.field = uimodel.model;
+
+/* TODO review careful.. this seems to cause some high-CPU Chrome hanging issues?!?
+                if (uimodel.action && uimodel.cell) {
+                    column.width = 30;
+                    var uiModelParams = uimodel.action.params;
+                    var params = '';
+                    for (var iParam = 0; iParam < uiModelParams.length; iParam+2) {
+                        // e.g. 'id: row.getProperty(\'id\')'
+                        params += uiModelParams[iParam]; // parameterName
+                        params += ':';
+                        var parameterValue = uiModelParams[iParam + 1];
+                        if (parameterValue.substring(0,1) == '$') {
+                            params += 'row.getProperty(\'';
+                            params += uiModelParams[iParam + 1].substring(1);
+                            params += '\')';
+                        } else {
+                            params += uiModelParams[iParam + 1];
+                        }
+                    }
+                    column.cellTemplate = '<div style="vertical-align: middle; text-align: center;"><a href="#{{$state.href(\''
+                        + uimodel.action.state + '\', {' + params + '}"><i style="vertical-align: middle;" class="icon-edit"></i></a></div>';
+                }
+ */
+
+                $scope.ui.gen.grid.columns.push(column);
+            }
+            //$scope.ui.gen.grid.options.data = $scope.uimodel.model;
+            //$scope.ui.gen.grid.options.data = 'model.contacts';
+        });
+        // TODO HIGH urgh! why does setting data above (deferred) not work, only works if it's here?
+        $scope.ui.gen.grid.options.data = 'model.contacts';
+    })
+
+  .controller('ContactsCtrlClassic', function ($scope, ContactsStoreService) {
     // 1. data models
     $scope.model = {};
     $scope.model.contacts = ContactsStoreService.allContacts();
 
-	// 2. UI models
+	// 2. UI models (JS widgets; as opposed to what's in the HTML)
     $scope.ui = {};
-
-    // 3. UI (JS widgets; as opposed to what's in the HTML)
     // TODO Better.. column chooser, instead showColumnMenu? Def. initially hidden cols, server-side persistence, etc. Wrap that in a new component.. contribute (OSS) as plugin to ng-grid.
     // This allows you to push/pop/splice/reassign column definitions and the changes will be reflected in the grid.
     $scope.myColumns = [{field: 'name', displayName: 'Name'},
@@ -151,12 +200,12 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
             enableColumnReordering: true, showColumnMenu: true
             // afterSelectionChange: function () { window.alert('yo'); }
 
-    // 4. custom action handlers go here..
+    // 3. custom action handlers go here..
 	// -- None in this controller
     };
   })
 
-    // http://stackoverflow.com/a/17904017/421602
+  // http://stackoverflow.com/a/17904017/421602
     .directive('json', function() {
         return {
             restrict: 'A', // only activate on element attribute
