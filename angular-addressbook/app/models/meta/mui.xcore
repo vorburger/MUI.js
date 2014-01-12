@@ -1,0 +1,47 @@
+// package ch.vorburger.muijs
+package mui
+
+class Form {
+	String legend // TODO should be an "expression" later
+	contains FormField[] fields
+}
+
+// TODO how-to make label/label/FormFieldType required, but rest not?
+class FormField {
+	String label // TODO should be an "expression" later
+	String model // TODO use.. "path" instead String
+	FormFieldType ftype
+	boolean required // TODO should be an "expression" later
+	contains FormFieldPrefix prefix
+	String showOnlyIf // TODO use.. "path" instead String!
+}
+
+enum FormFieldType {
+	text, email, number
+}
+
+// TODO not sure this is the best meta model.. just KISS instead?
+abstract class FormFieldPrefix {
+}
+class FormFieldPrefixGlyphIcon extends FormFieldPrefix {
+	FormFieldPrefixGlyphIconEnum icon
+}
+enum FormFieldPrefixGlyphIconEnum {
+	envelope, home // TODO list all available glyphicons
+}
+
+/*
+
+class View {
+	String name
+	contains Widget[] content
+}
+
+abstract class Widget {
+}
+
+abstract class WidgetWithLabel extends Widget {
+	String label
+}
+
+*/
