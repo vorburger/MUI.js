@@ -1,6 +1,8 @@
 // package ch.vorburger.muijs
 package mui
 
+import java.lang.String
+
 class Form {
 	String legend // TODO should be an "expression" later
 	contains FormField[] fields

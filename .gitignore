@@ -3,5 +3,6 @@ bin/
 target/
 workspace/
 xtend-gen/
+src-gen/
 *._trace
 *~
