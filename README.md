@@ -82,3 +82,4 @@ $ ./gjslint
 $ ./closure-compiler.sh
   but see https://code.google.com/p/closure-compiler/issues/detail?id=941
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vorburger/mui.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
