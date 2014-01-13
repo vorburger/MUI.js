@@ -1,8 +1,6 @@
 // package ch.vorburger.muijs
 package mui
 
-import java.lang.String
-
 class Form {
 	String legend // TODO should be an "expression" later
 	contains FormField[] fields
@@ -19,17 +17,21 @@ class FormField {
 }
 
 enum FormFieldType {
-	text, email, number
+	text
+	, email
+	, number
 }
 
 // TODO not sure this is the best meta model.. just KISS instead?
 abstract class FormFieldPrefix {
 }
+
 class FormFieldPrefixGlyphIcon extends FormFieldPrefix {
-	FormFieldPrefixGlyphIconEnum glyphicon
+	GlyphIcon glyphicon
 }
-enum FormFieldPrefixGlyphIconEnum {
-	envelope, home // TODO list all available glyphicons
+
+enum GlyphIcon {
+	envelope, home, edit // TODO list all available glyphicons
 }
 
 /*
@@ -47,3 +49,38 @@ abstract class WidgetWithLabel extends Widget {
 }
 
 */
+class List {
+	String model // TODO use.. "path" instead String
+	contains ListColumn[] columns
+	contains ListOptions options
+}
+
+abstract class ListColumn {
+	String label // TODO should be an "expression" later
+	contains GoToAction action
+}
+
+class DataListColumn extends ListColumn {
+	String model // TODO use.. "path" instead String
+}
+
+class IconListColumn extends ListColumn {
+	GlyphIcon glyphicon
+}
+
+class GoToAction {
+	String state // TODO should be a reference to (to-be-modeled) State SOON
+	contains StateParameter[] params
+}
+
+class StateParameter {
+	String name // TODO should be constrained to reference to the name of StateParameter of this GoToAction's State (OCL? Xbase?)
+	String value // TODO use "path" to "scope context"
+}
+
+class ListOptions {
+	boolean enableRowSelection
+	boolean multiSelect
+	boolean enableColumnReordering
+	boolean showColumnMenu
+}

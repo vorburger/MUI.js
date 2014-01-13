@@ -1,0 +1,48 @@
+use mui.*
+
+List {
+	model: "model.contacts"
+	columns: [
+		DataListColumn {
+			label: "Name"
+			model: "name"
+		}
+		DataListColumn {
+			label: "Age"
+			model: "age"
+		}
+		IconListColumn {
+			glyphicon: :edit
+			action: GoToAction {
+				state: "main.acontactHTML"
+				params: [ // TODO this looks a little too heavy...
+					StateParameter { // TODO this would be avoided if type names were optional if they can be derrived from context
+					// TODO if we had real "Map.Entry" support, this could simpler
+						name: "id"
+						value: "$id"
+					}
+				] // params: ( id => $id )
+			}
+		}
+		IconListColumn {
+			glyphicon: :edit
+			action: GoToAction {
+				state: "main.acontactGen"
+				params: [ // TODO this looks a little too heavy...
+					StateParameter { // TODO this would be avoided if type names were optional if they can be derrived from context
+					// TODO if we had real "Map.Entry" support, this could simpler
+						name: "id"
+						value: "$id"
+					}
+				]
+			}
+
+		}
+	]
+	options: ListOptions {
+		enableRowSelection: true
+		multiSelect: false
+		enableColumnReordering: true
+		showColumnMenu: true
+	}
+}
