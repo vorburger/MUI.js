@@ -1,0 +1,11 @@
+autobuilding=true
+eclipse.preferences.version=1
+is_project_specific=true
+outlet.DEFAULT_OUTPUT.cleanDirectory=
+outlet.DEFAULT_OUTPUT.cleanupDerived=true
+outlet.DEFAULT_OUTPUT.createDirectory=
+outlet.DEFAULT_OUTPUT.derived=true
+outlet.DEFAULT_OUTPUT.directory=app/models
+outlet.DEFAULT_OUTPUT.hideLocalSyntheticVariables=
+outlet.DEFAULT_OUTPUT.installDslAsPrimarySource=
+outlet.DEFAULT_OUTPUT.override=true
