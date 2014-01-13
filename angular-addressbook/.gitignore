@@ -5,3 +5,4 @@ dist
 # app/bower_components
 .idea/workspace.xml
 .idea/tasks.xml
+*.log

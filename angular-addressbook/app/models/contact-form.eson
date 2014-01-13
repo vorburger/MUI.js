@@ -15,7 +15,7 @@ Form {
 			ftype: :email
 			required: true
 			prefix: FormFieldPrefixGlyphIcon {
-				icon: :envelope
+				glyphicon: :envelope
 			}
 		}
 		FormField {
@@ -36,7 +36,7 @@ Form {
 			ftype: :email
 			required: false
 			prefix: FormFieldPrefixGlyphIcon {
-				icon: :envelope
+				glyphicon: :envelope
 			}
 			showOnlyIf: "model.contact.age != undefined && model.contact.age < 18"
 		}

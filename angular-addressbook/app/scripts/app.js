@@ -108,7 +108,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
     $scope.model = {};
     $scope.model.contact = ContactsStoreService.getContact($stateParams.id);
     // 2. UI models (JS widgets; as opposed to what's in the HTML) -- no programmatic widgets here, just dynamic meta view
-    $scope.uimodel = $resource('models/contact-form.muiv.json').get({}, function () {
+    $scope.uimodel = $resource('models/contact-form.json').get({}, function () {
       // $rootScope.mui.designer.uimodel = $scope.uimodel; // hm.. how to better? what if several on a page?!?
       // TODO factor this out into a helper function, somehow..
       addFieldsModelDerrivedState($scope.uimodel.fields, $scope);

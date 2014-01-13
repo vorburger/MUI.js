@@ -26,7 +26,7 @@ enum FormFieldType {
 abstract class FormFieldPrefix {
 }
 class FormFieldPrefixGlyphIcon extends FormFieldPrefix {
-	FormFieldPrefixGlyphIconEnum icon
+	FormFieldPrefixGlyphIconEnum glyphicon
 }
 enum FormFieldPrefixGlyphIconEnum {
 	envelope, home // TODO list all available glyphicons
