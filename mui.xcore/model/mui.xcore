@@ -1,6 +1,42 @@
 // TODO package ch.vorburger.muijs - doesn't work yet due to a limitation/bug in ESON 
 package mui
 
+// TODO later split following into more specific sub-packages 
+
+// This meta model is of course directly inspired by angular-ui / ui-router
+class States {
+	refers State start
+	contains AbstractState[] states
+}
+class AbstractState {
+	String name
+	String urlSeg // TODO later Validation (how?) cannot contain '/'
+	String[] params
+	contains View[] views
+	contains AbstractState[] states
+}
+class State extends AbstractState {
+	String title // TODO should be an "expression" later
+}
+class View {
+	String name // TODO LOW much later Validation and Ctrl-Space parent scan State's HTML template for available "ui-view"
+	String template // TODO later Validate, and Ctrl-Space and F3 to available *.html files!
+	String controller // TODO later Ref not String; Validate, and Ctrl-Space and F3 to .. what model?
+}
+
+// ----
+
+class GoToAction {
+	String state // TODO should be a reference to (to-be-modeled) State SOON
+	contains StateParameter[] params
+}
+class StateParameter {
+	String name // TODO should be constrained to reference to the name of StateParameter of this GoToAction's State (OCL? Xbase?)
+	String value // TODO use "path" to "scope context"
+}
+
+// ----
+
 class Form {
 	String legend // TODO should be an "expression" later
 	contains FormField[] fields
@@ -17,9 +53,7 @@ class FormField {
 }
 
 enum FormFieldType {
-	text
-	, email
-	, number
+	text, email, number
 }
 
 // TODO not sure this is the best meta model.. just KISS instead?
@@ -49,6 +83,9 @@ abstract class WidgetWithLabel extends Widget {
 }
 
 */
+
+// ----
+
 class List {
 	String model // TODO use.. "path" instead String
 	contains ListColumn[] columns
@@ -66,16 +103,6 @@ class DataListColumn extends ListColumn {
 
 class IconListColumn extends ListColumn {
 	GlyphIcon glyphicon
-}
-
-class GoToAction {
-	String state // TODO should be a reference to (to-be-modeled) State SOON
-	contains StateParameter[] params
-}
-
-class StateParameter {
-	String name // TODO should be constrained to reference to the name of StateParameter of this GoToAction's State (OCL? Xbase?)
-	String value // TODO use "path" to "scope context"
 }
 
 class ListOptions {

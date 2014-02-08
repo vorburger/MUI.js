@@ -82,11 +82,11 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
 
     $stateProvider // nota bene: better to NOT (ever) use just url: '/' !
     .state('main', { url: '/main', abstract: true, views: { 'root': { templateUrl: 'views/main.html' }}})
-	.state('main.home', { url: '/home', title: 'Welcome!', views: { 'main-body': { templateUrl: 'views/home.html' }}})
-	.state('main.contactsAng', { url: '/contacts', title: 'Contacts', views: { 'main-body': { templateUrl: 'views/contacts.html', controller: 'ContactsCtrlClassic' }}})
-    .state('main.contactsGen', { url: '/contactsMUI', title: 'Contacts', views: { 'main-body': { templateUrl: 'views/meta/datagrid.html', controller: 'ContactsCtrlMUI' }}})
-	.state('main.acontactHTML', { url: '/contact/HTMLTemplate/{id}', title: 'Edit/Add Contact', views: { 'main-body': { templateUrl: 'views/contact.html', controller: 'AContactCtrl' }}})
-    .state('main.acontactGen', { url: '/contact/GenForm/{id}', title: 'Edit/Add Contact', views: { 'main-body': { templateUrl: 'views/meta/simpleform.html', controller: 'AContactCtrl' }}});
+	.state('main.home', { url: '/home', title: 'Welcome!', views: { 'mainBody': { templateUrl: 'views/home.html' }}})
+	.state('main.contacts', { url: '/contacts', title: 'Contacts', views: { 'mainBody': { templateUrl: 'views/contacts.html', controller: 'ContactsCtrlClassic' }}})
+    .state('main.contactsMUI', { url: '/contactsMUI', title: 'Contacts', views: { 'mainBody': { templateUrl: 'views/meta/datagrid.html', controller: 'ContactsCtrlMUI' }}})
+	.state('main.contact', { url: '/contact/HTMLTemplate/{id}', title: 'Edit/Add Contact', views: { 'mainBody': { templateUrl: 'views/contact.html', controller: 'AContactCtrl' }}})
+    .state('main.contactMUI', { url: '/contact/GenForm/{id}', title: 'Edit/Add Contact', views: { 'mainBody': { templateUrl: 'views/meta/simpleform.html', controller: 'AContactCtrl' }}});
 	// note, when gen. later: Alternately (i.e. instead of dot), you can specify the parent of a state via the 'parent' property.
   })
 
@@ -189,8 +189,8 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
                         // TODO create a CSS style for centering, and use cellClass & headerClass instead..
                         // TODO should better be <a ui-sref="main.acontact({{row.getProperty(\'id\')}})"> but cannot use that due to: https://github.com/angular-ui/ng-grid/issues/559
                         // Note the hard-coded "#" - that wouldn't work if we were on HTML5 location mode..
-                        {width: 30, cellTemplate: '<div style="vertical-align: middle; text-align: center;"><a href="#{{$state.href(\'main.acontactHTML\', {id: row.getProperty(\'id\')})}}"><i style="vertical-align: middle;" class="icon-edit"></i></a></div>' },
-                        {width: 30, cellTemplate: '<div style="vertical-align: middle; text-align: center;"><a href="#{{$state.href(\'main.acontactGen\', {id: row.getProperty(\'id\')})}}"><i style="vertical-align: middle;" class="icon-edit"></i></a></div>' }];
+                        {width: 30, cellTemplate: '<div style="vertical-align: middle; text-align: center;"><a href="#{{$state.href(\'main.contact\', {id: row.getProperty(\'id\')})}}"><i style="vertical-align: middle;" class="icon-edit"></i></a></div>' },
+                        {width: 30, cellTemplate: '<div style="vertical-align: middle; text-align: center;"><a href="#{{$state.href(\'main.contactMUI\', {id: row.getProperty(\'id\')})}}"><i style="vertical-align: middle;" class="icon-edit"></i></a></div>' }];
     $scope.ui.myGrid = {};
     $scope.ui.myGrid.selections = [];
     $scope.ui.myGrid.options = { data: 'model.contacts', // you can also specify data as: $scope.myGridOptions = { data: $scope.myData }. However, updates to the underlying data will not be reflected in the grid

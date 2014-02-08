@@ -1,0 +1,39 @@
+use mui.*
+
+// TODO higher-level abstraction.. template & controller shouldn't (necessarily) be here
+
+States /* ? */ {
+	start: main.home
+	states: [ AbstractState main {
+			urlSeg: "main"
+			views:  [ View root { template: "views/main.html" } ]
+			states: [
+				State home {
+					// urlSeg: "home" -- URL Segment is optional, and defaults to state name
+					title: "Welcome!"
+					views: [
+						View mainBody { template: "views/home.html" }	
+					]
+				}
+				State contacts {
+					title: "Contacts (hand-coded in AngularJS)"
+					views: [ View mainBody { template: "views/contacts.html" controller: "ContactsCtrlClassic" } ]
+				}
+				State contactsMUI {
+					title: "Contacts (dyn. gen. by MUI.js)"
+					views: [ View mainBody { template: "views/meta/datagrid.html" controller: "ContactsCtrlMUI" } ]
+				}
+				State contact {
+					title: "Edit/Add Contact (hand-coded in AngularJS)"
+					params: [ "id" ] 
+					views: [ View mainBody { template: "views/contact.html" controller: "AContactCtrl" } ]
+				}
+				State contactMUI {
+					title: "Edit/Add Contact (dyn. gen. by MUI.js)"
+					params: [ "id" ] 
+					views: [ View mainBody { template: "views/meta/simpleform.html" controller: "AContactCtrl" } ]
+				}
+			]
+		}
+	]
+}

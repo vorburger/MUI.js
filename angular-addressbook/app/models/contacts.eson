@@ -14,9 +14,9 @@ List {
 		IconListColumn {
 			glyphicon: :edit
 			action: GoToAction {
-				state: "main.acontactHTML"
+				state: "main.contact"
 				params: [ // TODO this looks a little too heavy...
-					StateParameter { // TODO this would be avoided if type names were optional if they can be derrived from context
+					StateParameter { // TODO this would be avoided if type names were optional if they can be derived from context
 					// TODO if we had real "Map.Entry" support, this could simpler
 						name: "id"
 						value: "$id"
@@ -27,7 +27,7 @@ List {
 		IconListColumn {
 			glyphicon: :edit
 			action: GoToAction {
-				state: "main.acontactGen"
+				state: "main.contactMUI"
 				params: [ // TODO this looks a little too heavy...
 					StateParameter { // TODO this would be avoided if type names were optional if they can be derrived from context
 					// TODO if we had real "Map.Entry" support, this could simpler
