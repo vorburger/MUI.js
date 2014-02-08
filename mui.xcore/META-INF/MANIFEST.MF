@@ -13,5 +13,5 @@ Export-Package: mui,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.xtext.xbase.lib,
- org.eclipse.emf.ecore.xcore.lib
+ org.eclipse.emf.ecore.xcore.lib;visibility:=reexport
 Bundle-ActivationPolicy: lazy

@@ -134,7 +134,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
         $scope.ui.gen.grid.options = { columnDefs: 'ui.gen.grid.columns' };
         // TODO one problem with this approach is that the list (grid) is first rendered with all columns.. and then redrawn with what's configured here after load of the JSON uimodel
         // TODO review this later.. contrary to the simpleform, this is probably NOT causing a 2-way binding.. so you couldn't edit the uimodel JSON in-browser for the Grid, yet.
-        $scope.uimodel = $resource('models/contacts.muiv.json').get({}, function () {
+        $scope.uimodel = $resource('models/contacts.json').get({}, function () {
             $scope.ui.gen.grid.columns = [];
             var columns = $scope.uimodel.columns;
             for (var iCol = 0; iCol < columns.length; iCol++) {
