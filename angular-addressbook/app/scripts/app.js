@@ -29,6 +29,7 @@ function addFieldsModelDerrivedState(fields, base) {
 /*global angular:true*/
 angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 'ngResource', 'contenteditable'])
   .factory('ModelRespositoryService', function () {
+// TODO .factory('ModelRespositoryService', [ '$resource', function ($resource) ... ] 
     var newModelRespositoryService = {};
     newModelRespositoryService.getModel = function(modelNamePath) {
 
@@ -72,8 +73,14 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
   })
 
   .config(function ($stateProvider, $urlRouterProvider) {
-    // TODO how to read this configuration from a app.js.routes.json? (which will be slower.. how to inline it again, later?)
-
+	  // CANNOT HERE: var statesModel = $resource('models/router-states.json').get({}, function () { ..
+	  // @see http://stackoverflow.com/questions/21654010/how-to-use-resource-to-configure-stateprovider-urlrouterprovider-during-conf
+	  // TODO remove hack below, used until I've learnt how to do this right:
+	  // when solution found, update http://stackoverflow.com/questions/16322040/angular-js-error-unknown-provider-resource as well
+	  jQuery.getJSON('models/router-states.json', function(statesModel) {
+		  console.log(statesModel.states);
+	  });
+	  
     // For any unmatched url, or when there is no when there is no route, send to default state URL
     $urlRouterProvider.otherwise('/main/home');
     $urlRouterProvider.when('', '/main/home');
@@ -91,19 +98,23 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
   })
 
   // https://github.com/angular-ui/ui-router/wiki/Quick-Reference#note-about-using-state-within-a-template
+  // .run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
   .run(function ($rootScope, $state, $stateParams) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
+  //}])
   })
-
-  .controller('MUI', function ($rootScope) {
+  
+  .controller('MUI', ['$rootScope', function ($rootScope) {
         $rootScope.mui = {};
         $rootScope.mui.designer = {};
         $rootScope.mui.designer.preferences = { "lhsPanelWidth": 300 };
         $rootScope.mui.designer.uimodel = {};
-  })
+  }])
 
-  .controller('AContactCtrl', function ($scope, $state, $stateParams, ContactsStoreService, $resource, $rootScope) {
+  .controller('AContactCtrl', 
+		  [ '$scope', '$state', '$stateParams', 'ContactsStoreService', '$resource', '$rootScope', 
+		    function ($scope, $state, $stateParams, ContactsStoreService, $resource, $rootScope) {
     // 1. data models
     $scope.model = {};
     $scope.model.contact = ContactsStoreService.getContact($stateParams.id);
@@ -120,9 +131,11 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
         $state.transitionTo('main.contacts', {});
       };
 	// TBD build another example of a custom click handler here.. e.g. sendSMS()? ;) impl: just log!
-  })
+  }])
 
-  .controller('ContactsCtrlMUI', function ($scope, ContactsStoreService, $resource) {
+  .controller('ContactsCtrlMUI',
+		  [ '$scope', 'ContactsStoreService', '$resource',
+		  function ($scope, ContactsStoreService, $resource) {
         // 1. data models
         $scope.model = {};
         $scope.model.contacts = ContactsStoreService.allContacts();
@@ -173,9 +186,9 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
         });
         // TODO HIGH urgh! why does setting data above (deferred) not work, only works if it's here?
         $scope.ui.gen.grid.options.data = 'model.contacts';
-    })
+    }])
 
-  .controller('ContactsCtrlClassic', function ($scope, ContactsStoreService) {
+  .controller('ContactsCtrlClassic', [ '$scope', 'ContactsStoreService', function ($scope, ContactsStoreService) {
     // 1. data models
     $scope.model = {};
     $scope.model.contacts = ContactsStoreService.allContacts();
@@ -203,7 +216,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
     // 3. custom action handlers go here..
 	// -- None in this controller
     };
-  })
+  }])
 
   // http://stackoverflow.com/a/17904017/421602
     .directive('json', function() {
