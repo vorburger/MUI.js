@@ -10,7 +10,7 @@ class States {
 }
 class AbstractState {
 	String name
-	String urlSeg // TODO later Validation (how?) cannot contain '/'
+	String urlSeg // TODO later Validation (how?) cannot contain '/' (or be only a '/')
 	String[] params
 	contains View[] views
 	contains AbstractState[] states

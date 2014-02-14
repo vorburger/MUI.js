@@ -1,6 +1,13 @@
 use mui.*
 
 // TODO higher-level abstraction.. template & controller shouldn't (necessarily) be here
+// instead of template: "views/meta/datagrid.html", that should be defined elsewhere in a shared model
+// instead of controller, there should probably be a reference to a "Service" + EClass (from contacts.xcore) pair
+//    (or triple scopeName/Service/returnType) here (or returnType just in the Service, unless it's Generic LATER..)
+//    AND params forwarding as arguments into service  
+// https://docs.google.com/document/d/1afd5dojpjhhrO1OxsRTFum6o4qUWzWs-sq-gszaiVjc/edit#heading=h.r045g8cxiem
+//    AND ALSO how-to onSave: { saveContact(contact) } ?
+
 
 States /* ? */ {
 	start: main.home

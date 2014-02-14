@@ -27,7 +27,7 @@ function addFieldsModelDerrivedState(fields, base) {
 }
 
 /*global angular:true*/
-angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 'ngResource', 'contenteditable'])
+angular.module('mui.jsAngularAddressbookApp', ['ui.router.state', 'ui.date', 'ngGrid', 'ngResource', 'contenteditable'])
   .factory('ModelRespositoryService', function () {
 // TODO .factory('ModelRespositoryService', [ '$resource', function ($resource) ... ] 
     var newModelRespositoryService = {};
@@ -74,15 +74,15 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
   
   .factory('stateModelMapperService', function() {
 	  return {
-		  mapStates: function ($stateProvider, states) {
+		  mapStates: function ($state, states) {
 			  for (var i = 0; i < states.length; i++) {
 				  var urlSeg = states[i].urlSeg;
 				  if (!urlSeg) urlSeg = states[i].name
 				  urlSeg = "/" + urlSeg
 				  var isAbstract = states[i]._type === "AbstractState" ? true : false;
 				  // TODO urlSeg needs to be concat with parent.. but not in new lib version anymore - upgrade?
-				  // This doesn't actually work - due to https://github.com/angular-ui/ui-router/issues/874 ?
-				  $stateProvider.state(states[i].name, {
+				  $state.registerState({
+					  name: states[i].name,
 					  url: urlSeg,
 					  abstract: isAbstract,
 					  views: { 'root': { templateUrl: 'views/main.html' }}
@@ -92,14 +92,27 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
 	  };
   })
 
+  .run(function ($rootScope, $state, $stateParams, $resource, stateModelMapperService) {
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+    
+    var statesModel = $resource('models/router-states.json').get({}, function () {
+    	console.log(statesModel.states[0].name);
+    	stateModelMapperService.mapStates($state, statesModel.states);
+//	    $state.registerState({ name: 'main', url: '/main', abstract: true, views: { 'root': { templateUrl: 'views/main.html' }}});
+	    $state.registerState({ name: 'main.home', url: '/home', title: 'Welcome!', views: { 'mainBody': { templateUrl: 'views/home.html' }}});
+	    $state.go('main.home'); // !!
+    })
+  })
+
   .config(function ($stateProvider, $urlRouterProvider, stateModelMapperServiceProvider) {
 	  // CANNOT HERE: var statesModel = $resource('models/router-states.json').get({}, function () { ..
 	  // @see http://stackoverflow.com/questions/21654010/how-to-use-resource-to-configure-stateprovider-urlrouterprovider-during-conf
 	  // TODO remove hack below, used until I've learnt how to do this right:
 	  // when solution found, update http://stackoverflow.com/questions/16322040/angular-js-error-unknown-provider-resource as well
-	  jQuery.getJSON('models/router-states.json', function(statesModel) {
-		  stateModelMapperServiceProvider.$get().mapStates($stateProvider, statesModel.states)
-	  });	  
+//	  jQuery.getJSON('models/router-states.json', function(statesModel) {
+//		  stateModelMapperServiceProvider.$get().mapStates($stateProvider, statesModel.states)
+//	  });	  
 	  
     // For any unmatched url, or when there is no when there is no route, send to default state URL
     $urlRouterProvider.otherwise('/main/home');
@@ -114,7 +127,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
 //    .state('main.contactsMUI', { url: '/contactsMUI', title: 'Contacts', views: { 'mainBody': { templateUrl: 'views/meta/datagrid.html', controller: 'ContactsCtrlMUI' }}})
 //	.state('main.contact', { url: '/contact/HTMLTemplate/{id}', title: 'Edit/Add Contact', views: { 'mainBody': { templateUrl: 'views/contact.html', controller: 'AContactCtrl' }}})
 //    .state('main.contactMUI', { url: '/contact/GenForm/{id}', title: 'Edit/Add Contact', views: { 'mainBody': { templateUrl: 'views/meta/simpleform.html', controller: 'AContactCtrl' }}});
-	// note, when gen. later: Alternately (i.e. instead of dot), you can specify the parent of a state via the 'parent' property.
+//	// note, when gen. later: Alternately (i.e. instead of dot), you can specify the parent of a state via the 'parent' property.
   })
 
   // https://github.com/angular-ui/ui-router/wiki/Quick-Reference#note-about-using-state-within-a-template

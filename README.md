@@ -7,6 +7,9 @@ Demos
 * http://blog2.vorburger.ch/2013/07/mui-v001-dynamic-form-builder-based-on.html
 * http://www.youtube.com/watch?v=GnSRMtOM46s
 
+Also see https://github.com/vorburger/efactory, used as model syntax here.
+
+
 Background
 ---
 
