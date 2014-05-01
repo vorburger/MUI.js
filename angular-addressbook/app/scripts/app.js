@@ -71,67 +71,8 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 
       };
     return newContactsStoreService;
   })
-  
-/*  .factory('stateModelMapperService', function () {
-	  return {
-		  mapStates: function ($state, states) {
-			  for (var i = 0; i < states.length; i++) {
-				  var urlSeg = states[i].urlSeg;
-				  if (!urlSeg) { urlSeg = states[i].name; }
-				  urlSeg = '/' + urlSeg;
-				  var isAbstract = states[i]._type === 'AbstractState' ? true : false;
-				  // TODO urlSeg needs to be concat with parent.. but not in new lib version anymore - upgrade?
-				  $state.registerState({
-					  name: states[i].name,
-					  url: urlSeg,
-					  abstract: isAbstract,
-					  views: { 'root': { templateUrl: 'views/main.html' }}
-				  });
-			  }
-		  }
-	  };
-  })*/
 
-/*  .run(function ($rootScope, $state, $stateParams, $resource, stateModelMapperService) {
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-      .factory('stateModelMapperService', function () {‌
-      return {‌
-          mapStates: function ($state, states) {‌
-              for (var i = 0; i < states.length; i++) {‌
-                  var urlSeg = states[i].urlSeg;‌
-                  if (!urlSeg) { urlSeg = states[i].name; }‌
-                  urlSeg = '/' + urlSeg;‌
-                  var isAbstract = states[i]._type === 'AbstractState' ? true : false;‌
-                  // TODO urlSeg needs to be concat with parent.. but not in new lib version anymore - upgrade?‌
-                  $state.registerState({‌
-                      name: states[i].name,‌
-                      url: urlSeg,‌
-                      abstract: isAbstract,‌
-                      views: { 'root': { templateUrl: 'views/main.html' }}‌
-                  });‌
-              }‌
-          }‌
-      };‌
-  })‌
-
-    var statesModel = $resource('models/router-states.json').get({}, function () {
-    	console.log(statesModel.states[0].name);
-    	stateModelMapperService.mapStates($state, statesModel.states);
-//	    $state.registerState({ name: 'main', url: '/main', abstract: true, views: { 'root': { templateUrl: 'views/main.html' }}});
-	    $state.registerState({ name: 'main.home', url: '/home', title: 'Welcome!', views: { 'mainBody': { templateUrl: 'views/home.html' }}});
-	    $state.go('main.home'); // !!
-    });
-  }) */
-
-  .config(function ($stateProvider, $urlRouterProvider /*, stateModelMapperServiceProvider*/) {
-	  // CANNOT HERE: var statesModel = $resource('models/router-states.json').get({}, function () { ..
-	  // @see http://stackoverflow.com/questions/21654010/how-to-use-resource-to-configure-stateprovider-urlrouterprovider-during-conf
-	  // TODO remove hack below, used until I've learnt how to do this right:
-	  // when solution found, update http://stackoverflow.com/questions/16322040/angular-js-error-unknown-provider-resource as well
-//	  jQuery.getJSON('models/router-states.json', function(statesModel) {
-//		  stateModelMapperServiceProvider.$get().mapStates($stateProvider, statesModel.states)
-//	  });	  
+  .config(function ($stateProvider, $urlRouterProvider) {
 	  
     // For any unmatched url, or when there is no when there is no route, send to default state URL
     $urlRouterProvider.otherwise('/main/home');
