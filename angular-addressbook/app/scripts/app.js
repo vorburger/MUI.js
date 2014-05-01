@@ -27,7 +27,7 @@ function addFieldsModelDerrivedState(fields, base) {
 }
 
 /*global angular:true*/
-angular.module('mui.jsAngularAddressbookApp', ['ui.router.state', 'ui.date', 'ngGrid', 'ngResource', 'contenteditable'])
+angular.module('mui.jsAngularAddressbookApp', ['ui.state', 'ui.date', 'ngGrid', 'ngResource', 'contenteditable'])
   .factory('ModelRespositoryService', function () {
 // TODO .factory('ModelRespositoryService', [ '$resource', function ($resource) ... ] 
     var newModelRespositoryService = {};
@@ -72,14 +72,14 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.router.state', 'ui.date', 'ng
     return newContactsStoreService;
   })
   
-  .factory('stateModelMapperService', function() {
+/*  .factory('stateModelMapperService', function () {
 	  return {
 		  mapStates: function ($state, states) {
 			  for (var i = 0; i < states.length; i++) {
 				  var urlSeg = states[i].urlSeg;
-				  if (!urlSeg) urlSeg = states[i].name
-				  urlSeg = "/" + urlSeg
-				  var isAbstract = states[i]._type === "AbstractState" ? true : false;
+				  if (!urlSeg) { urlSeg = states[i].name; }
+				  urlSeg = '/' + urlSeg;
+				  var isAbstract = states[i]._type === 'AbstractState' ? true : false;
 				  // TODO urlSeg needs to be concat with parent.. but not in new lib version anymore - upgrade?
 				  $state.registerState({
 					  name: states[i].name,
@@ -90,22 +90,41 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.router.state', 'ui.date', 'ng
 			  }
 		  }
 	  };
-  })
+  })*/
 
-  .run(function ($rootScope, $state, $stateParams, $resource, stateModelMapperService) {
+/*  .run(function ($rootScope, $state, $stateParams, $resource, stateModelMapperService) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
-    
+      .factory('stateModelMapperService', function () {‌
+      return {‌
+          mapStates: function ($state, states) {‌
+              for (var i = 0; i < states.length; i++) {‌
+                  var urlSeg = states[i].urlSeg;‌
+                  if (!urlSeg) { urlSeg = states[i].name; }‌
+                  urlSeg = '/' + urlSeg;‌
+                  var isAbstract = states[i]._type === 'AbstractState' ? true : false;‌
+                  // TODO urlSeg needs to be concat with parent.. but not in new lib version anymore - upgrade?‌
+                  $state.registerState({‌
+                      name: states[i].name,‌
+                      url: urlSeg,‌
+                      abstract: isAbstract,‌
+                      views: { 'root': { templateUrl: 'views/main.html' }}‌
+                  });‌
+              }‌
+          }‌
+      };‌
+  })‌
+
     var statesModel = $resource('models/router-states.json').get({}, function () {
     	console.log(statesModel.states[0].name);
     	stateModelMapperService.mapStates($state, statesModel.states);
 //	    $state.registerState({ name: 'main', url: '/main', abstract: true, views: { 'root': { templateUrl: 'views/main.html' }}});
 	    $state.registerState({ name: 'main.home', url: '/home', title: 'Welcome!', views: { 'mainBody': { templateUrl: 'views/home.html' }}});
 	    $state.go('main.home'); // !!
-    })
-  })
+    });
+  }) */
 
-  .config(function ($stateProvider, $urlRouterProvider, stateModelMapperServiceProvider) {
+  .config(function ($stateProvider, $urlRouterProvider /*, stateModelMapperServiceProvider*/) {
 	  // CANNOT HERE: var statesModel = $resource('models/router-states.json').get({}, function () { ..
 	  // @see http://stackoverflow.com/questions/21654010/how-to-use-resource-to-configure-stateprovider-urlrouterprovider-during-conf
 	  // TODO remove hack below, used until I've learnt how to do this right:
@@ -120,14 +139,14 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.router.state', 'ui.date', 'ng
     // when is also useful for "aliases":
     $urlRouterProvider.when('/main/kontakte', '/main/contacts');
 
-//    $stateProvider // nota bene: better to NOT (ever) use just url: '/' !
-//    .state('main', { url: '/main', abstract: true, views: { 'root': { templateUrl: 'views/main.html' }}})
-//	.state('main.home', { url: '/home', title: 'Welcome!', views: { 'mainBody': { templateUrl: 'views/home.html' }}})
-//	.state('main.contacts', { url: '/contacts', title: 'Contacts', views: { 'mainBody': { templateUrl: 'views/contacts.html', controller: 'ContactsCtrlClassic' }}})
-//    .state('main.contactsMUI', { url: '/contactsMUI', title: 'Contacts', views: { 'mainBody': { templateUrl: 'views/meta/datagrid.html', controller: 'ContactsCtrlMUI' }}})
-//	.state('main.contact', { url: '/contact/HTMLTemplate/{id}', title: 'Edit/Add Contact', views: { 'mainBody': { templateUrl: 'views/contact.html', controller: 'AContactCtrl' }}})
-//    .state('main.contactMUI', { url: '/contact/GenForm/{id}', title: 'Edit/Add Contact', views: { 'mainBody': { templateUrl: 'views/meta/simpleform.html', controller: 'AContactCtrl' }}});
-//	// note, when gen. later: Alternately (i.e. instead of dot), you can specify the parent of a state via the 'parent' property.
+    $stateProvider // nota bene: better to NOT (ever) use just url: '/' !
+    .state('main', { url: '/main', abstract: true, views: { 'root': { templateUrl: 'views/main.html' }}})
+	.state('main.home', { url: '/home', title: 'Welcome!', views: { 'mainBody': { templateUrl: 'views/home.html' }}})
+	.state('main.contacts', { url: '/contacts', title: 'Contacts', views: { 'mainBody': { templateUrl: 'views/contacts.html', controller: 'ContactsCtrlClassic' }}})
+    .state('main.contactsMUI', { url: '/contactsMUI', title: 'Contacts', views: { 'mainBody': { templateUrl: 'views/meta/datagrid.html', controller: 'ContactsCtrlMUI' }}})
+	.state('main.contact', { url: '/contact/HTMLTemplate/{id}', title: 'Edit/Add Contact', views: { 'mainBody': { templateUrl: 'views/contact.html', controller: 'AContactCtrl' }}})
+    .state('main.contactMUI', { url: '/contact/GenForm/{id}', title: 'Edit/Add Contact', views: { 'mainBody': { templateUrl: 'views/meta/simpleform.html', controller: 'AContactCtrl' }}});
+	// note, when gen. later: Alternately (i.e. instead of dot), you can specify the parent of a state via the 'parent' property.
   })
 
   // https://github.com/angular-ui/ui-router/wiki/Quick-Reference#note-about-using-state-within-a-template
@@ -137,7 +156,7 @@ angular.module('mui.jsAngularAddressbookApp', ['ui.router.state', 'ui.date', 'ng
     $rootScope.$stateParams = $stateParams;
   //}])
   })
-  
+
   .controller('MUI', ['$rootScope', function ($rootScope) {
         $rootScope.mui = {};
         $rootScope.mui.designer = {};
