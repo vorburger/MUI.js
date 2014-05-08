@@ -19,7 +19,7 @@ class RoutesGenerator /* ? implements IGenerator ? */ {
 		    $urlRouterProvider.when('', '/main/home');
 		
 		    $stateProvider
-		    «FOR state : states.states»
+		    «FOR state : states.states» // TODO all CONTAINED states!!
 		      .state('«state.fqn»', { url: '«state.urlOrDefault»' } )
 		    «ENDFOR»
 		});

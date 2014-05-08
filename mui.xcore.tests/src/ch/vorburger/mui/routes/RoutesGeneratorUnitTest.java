@@ -1,16 +1,12 @@
 package ch.vorburger.mui.routes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import mui.MuiFactory;
 import mui.State;
 
-import org.eclipse.xtext.junit4.XtextRunner;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-//@RunWith(XtextRunner.class)
-// TODO @InjectWith(EsonInjectorProvider.class)
-public class RoutesGeneratorTest {
+public class RoutesGeneratorUnitTest {
 
 	@Test
 	public void testGetUrlOrDefault() {
@@ -34,5 +30,4 @@ public class RoutesGeneratorTest {
 		assertEquals("parent.child", new RoutesGenerator().fqn(childState).toString());
 	}
 	
-	// TODO test parsing router-states.eson and assert it gen. routes.js
 }
