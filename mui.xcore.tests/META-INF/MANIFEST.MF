@@ -5,4 +5,6 @@ Bundle-SymbolicName: mui.xcore.tests
 Bundle-Version: 1.0.0.qualifier
 Fragment-Host: mui.xcore;bundle-version="0.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.junit
+Require-Bundle: org.junit,
+ org.eclipse.xtext.junit4;bundle-version="2.6.0",
+ org.eclipse.emf.eson;bundle-version="0.10.0"

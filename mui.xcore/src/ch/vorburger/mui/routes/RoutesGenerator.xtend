@@ -1,7 +1,7 @@
 package ch.vorburger.mui.routes
 
+import mui.AbstractState
 import mui.States
-import mui.State
 
 class RoutesGenerator /* ? implements IGenerator ? */ {
 
@@ -15,15 +15,31 @@ class RoutesGenerator /* ? implements IGenerator ? */ {
 		angular.module('mui.jsAngularAddressbookApp') // NOTE: Do *NOT* ,[...]) here!! http://stackoverflow.com/questions/16771812/angularjs-seed-putting-javascript-into-separate-files-app-js-controllers-js
 		  .config(function ($stateProvider, $urlRouterProvider) {
 		
-		$urlRouterProvider.otherwise(«states.start.getURLOrDefault»);
-		$urlRouterProvider.when('', '/main/home');
+		    $urlRouterProvider.otherwise(«states.start.urlOrDefault»);
+		    $urlRouterProvider.when('', '/main/home');
 		
-		  $stateProvider
-		}
+		    $stateProvider
+		    «FOR state : states.states»
+		      .state('«state.fqn»', { url: '«state.urlOrDefault»' } )
+		    «ENDFOR»
+		});
 	'''
+	// TODO views
+	// TODO support params
+	// TODO support title, with type guard switch if State
+	// TODO support "aliases" $urlRouterProvider.when('/main/kontakte', '/main/contacts');
 	
-	def getURLOrDefault(State state) {
+	def urlOrDefault(AbstractState state) {
 		if (state.urlSeg != null) state.urlSeg else state.name  
 	}
-	
+
+	def fqn(AbstractState state) {
+		var name = new StringBuilder(state.name)
+		var parent = state;
+		while ((parent = parent.eContainer as AbstractState) != null) {
+			name.insert(0, '.')			
+			name.insert(0, parent.name)
+		}
+		return name
+	}
 }
