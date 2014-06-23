@@ -15,6 +15,7 @@ class RoutesGenerator /* ? implements IGenerator ? */ {
 		angular.module('mui.jsAngularAddressbookApp') // NOTE: Do *NOT* ,[...]) here!! http://stackoverflow.com/questions/16771812/angularjs-seed-putting-javascript-into-separate-files-app-js-controllers-js
 		  .config(function ($stateProvider, $urlRouterProvider) {
 		
+			// For any unmatched url, or when there is no when there is no route, send to default state URL
 		    $urlRouterProvider.otherwise(«states.start.urlOrDefault»);
 		    $urlRouterProvider.when('', '/main/home');
 		
@@ -36,7 +37,8 @@ class RoutesGenerator /* ? implements IGenerator ? */ {
 	def fqn(AbstractState state) {
 		var name = new StringBuilder(state.name)
 		var parent = state;
-		while ((parent = parent.eContainer as AbstractState) != null) {
+		while (parent.eContainer instanceof AbstractState) {
+			parent = parent.eContainer as AbstractState
 			name.insert(0, '.')			
 			name.insert(0, parent.name)
 		}

@@ -11,7 +11,7 @@ import org.eclipse.xtext.junit4.IRegistryConfigurator;
 
 import com.google.inject.Injector;
 
-// TODO What's a better way than copy/pasting this from org.eclipse.emf.eson.tests/src-gen/ ?
+// TODO ESON should publish test bundle as part of the SDK feature, so that we can depend on it here, instead of copy/pasting this from org.eclipse.emf.eson.tests/src-gen/ ?
 public class EFactoryInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
 	
     protected GlobalStateMemento stateBeforeInjectorCreation;

@@ -1,14 +1,13 @@
 package ch.vorburger.mui.routes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.net.URL;
 
 import javax.inject.Inject;
 
-import mui.MuiFactory;
-import mui.State;
+import mui.MuiPackage;
 import mui.States;
 
 import org.eclipse.emf.ecore.EObject;
@@ -32,6 +31,7 @@ public class RoutesGeneratorIntegrationTest {
 	@Inject ValidationTestHelper validationTestHelper;
 	
 	@Test public void testGeneratingRoutesJS() throws Exception {
+		MuiPackage.eINSTANCE.toString(); // @Before
 		CharSequence eson = getResourceAsString("router-states.eson");
 		EObject root = parseHelper.parse(eson );
 		validationTestHelper.assertNoErrors(root);
@@ -44,7 +44,7 @@ public class RoutesGeneratorIntegrationTest {
 	
 	// TODO move somewhere handy...
 	private String getResourceAsString(String resourceName) throws IOException {
-		URL url = Resources.getResource(resourceName);
+		URL url = getClass().getResource(resourceName); // NOT Resources.getResource(resourceName); because that does not do java.lang.Class.resolveName(String) ..
 		return Resources.toString(url, Charsets.UTF_8);
 	}
 }

@@ -7,8 +7,6 @@ angular.module('mui.jsAngularAddressbookApp') // NOTE: Do *NOT* ,[...]) here!! h
     // For any unmatched url, or when there is no when there is no route, send to default state URL
     $urlRouterProvider.otherwise('/main/home');
     $urlRouterProvider.when('', '/main/home');
-    // when is also useful for "aliases":
-    $urlRouterProvider.when('/main/kontakte', '/main/contacts');
 
     $stateProvider // nota bene: better to NOT (ever) use just url: '/' !
     .state('main', { url: '/main', abstract: true, views: { 'root': { templateUrl: 'views/main.html' }}})
