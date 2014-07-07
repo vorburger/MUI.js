@@ -3,14 +3,11 @@
 /*global angular:true*/
 angular.module('mui.jsAngularAddressbookApp') // NOTE: Do *NOT* ,[...]) here!! http://stackoverflow.com/questions/16771812/angularjs-seed-putting-javascript-into-separate-files-app-js-controllers-js
   .config(function ($stateProvider, $urlRouterProvider) {
-	  
-    // For any unmatched url, or when there is no when there is no route, send to default state URL
+
     $urlRouterProvider.otherwise('/main/home');
     $urlRouterProvider.when('', '/main/home');
-    // when is also useful for "aliases":
-    $urlRouterProvider.when('/main/kontakte', '/main/contacts');
 
-    $stateProvider // nota bene: better to NOT (ever) use just url: '/' !
+    $stateProvider
     .state('main', { url: '/main', abstract: true, views: { 'root': { templateUrl: 'views/main.html' }}})
 	.state('main.home', { url: '/home', title: 'Welcome!', views: { 'mainBody': { templateUrl: 'views/home.html' }}})
 
