@@ -36,7 +36,10 @@ class RoutesGenerator /* ? implements IGenerator ? */ {
 	def fqn(AbstractState state) {
 		var name = new StringBuilder(state.name)
 		var parent = state;
-		while ((parent = parent.eContainer as AbstractState) != null) {
+		// TODO create a getParentAbstractState method in AbstractState in mui.xcore.. derived?
+		while ((parent.eContainer instanceof AbstractState) 
+			&& (parent = parent.eContainer as AbstractState) != null
+		) {
 			name.insert(0, '.')			
 			name.insert(0, parent.name)
 		}

@@ -8,10 +8,12 @@ import java.net.URL;
 import javax.inject.Inject;
 
 import mui.MuiFactory;
+import mui.MuiPackage;
 import mui.State;
 import mui.States;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.eson.eFactory.EFactoryPackage;
 import org.eclipse.emf.eson.resource.EFactoryResource;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
@@ -32,8 +34,9 @@ public class RoutesGeneratorIntegrationTest {
 	@Inject ValidationTestHelper validationTestHelper;
 	
 	@Test public void testGeneratingRoutesJS() throws Exception {
+		MuiPackage.eINSTANCE.toString(); // TODO auto register.. how? META-INF/... service like auto discovery
 		CharSequence eson = getResourceAsString("router-states.eson");
-		EObject root = parseHelper.parse(eson );
+		EObject root = parseHelper.parse(eson);
 		validationTestHelper.assertNoErrors(root);
 		States states = EFactoryResource.getEFactoryEObject(root.eResource(), States.class);
 		RoutesGenerator routesGenerator = new RoutesGenerator(); // @Inject ?
@@ -44,7 +47,7 @@ public class RoutesGeneratorIntegrationTest {
 	
 	// TODO move somewhere handy...
 	private String getResourceAsString(String resourceName) throws IOException {
-		URL url = Resources.getResource(resourceName);
+		URL url = Resources.getResource(RoutesGeneratorIntegrationTest.class, resourceName);
 		return Resources.toString(url, Charsets.UTF_8);
 	}
 }
