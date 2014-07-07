@@ -19,6 +19,7 @@ import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
 import org.eclipse.xtext.junit4.util.ParseHelper;
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -45,7 +46,15 @@ public class RoutesGeneratorIntegrationTest {
 		assertEquals(expectedJS, genJS);
 	}
 	
-	// TODO move somewhere handy...
+	// TODO move following two helper up somewhere handy...
+	
+	/**
+	 * @see https://github.com/junit-team/junit/pull/949/
+	 */
+	protected void assertEquals(CharSequence expected, CharSequence actual) {
+		Assert.assertEquals(expected.toString(), actual.toString());
+	}
+	
 	private String getResourceAsString(String resourceName) throws IOException {
 		URL url = Resources.getResource(RoutesGeneratorIntegrationTest.class, resourceName);
 		return Resources.toString(url, Charsets.UTF_8);
