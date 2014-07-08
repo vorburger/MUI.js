@@ -12,9 +12,9 @@ public class RoutesGeneratorUnitTest {
 	public void testGetUrlOrDefault() {
 		State state = MuiFactory.eINSTANCE.createState();
 		state.setName("name");
-		assertEquals("name", new RoutesGenerator().urlOrDefault(state));
+		assertEquals("name", new RoutesGenerator().urlOrNameAsDefault(state));
 		state.setUrlSeg("urlFragment");
-		assertEquals("urlFragment", new RoutesGenerator().urlOrDefault(state));
+		assertEquals("urlFragment", new RoutesGenerator().urlOrNameAsDefault(state));
 	}
 
 	@Test

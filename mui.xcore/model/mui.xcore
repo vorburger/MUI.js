@@ -14,6 +14,11 @@ class AbstractState {
 	String[] params
 	contains View[] views
 	contains AbstractState[] states
+
+	op AbstractState getParentAbstractState() {
+		if (eContainer() instanceof AbstractState)
+			eContainer() as AbstractState
+	}
 }
 class State extends AbstractState {
 	String title // TODO should be an "expression" later
