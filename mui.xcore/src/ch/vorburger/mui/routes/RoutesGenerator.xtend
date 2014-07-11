@@ -15,8 +15,6 @@ class RoutesGenerator /* ? implements JS(!)IGenerator ? */ {
 	// TODO header stuff should be shared out somewhere else re-usable
 	// TODO ultimately, this shouldn't be in project mui.xcore, but fine grained modularized in a a routing support add-on plug-in 
 	
-	TreeIterator<Object> iterator
-	
 	def js(States states) '''
 		'use strict';
 

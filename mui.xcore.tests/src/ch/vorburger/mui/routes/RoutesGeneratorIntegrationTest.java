@@ -1,19 +1,13 @@
 package ch.vorburger.mui.routes;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.net.URL;
 
 import javax.inject.Inject;
 
-import mui.MuiFactory;
 import mui.MuiPackage;
-import mui.State;
-import mui.States;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.eson.eFactory.EFactoryPackage;
 import org.eclipse.emf.eson.resource.EFactoryResource;
 import org.eclipse.xtext.junit4.InjectWith;
 import org.eclipse.xtext.junit4.XtextRunner;
@@ -25,6 +19,8 @@ import org.junit.runner.RunWith;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
+//vorburger@github.com/vorburger/MUI.js.git
+import mui.States;
 
 @RunWith(XtextRunner.class)
 @InjectWith(EFactoryInjectorProvider.class)
