@@ -52,7 +52,8 @@ public class RoutesGeneratorIntegrationTest {
 	 * @see https://github.com/junit-team/junit/pull/949/
 	 */
 	protected void assertEquals(CharSequence expected, CharSequence actual) {
-		Assert.assertEquals(expected.toString(), actual.toString());
+		// TODO trim() each line..
+		Assert.assertEquals(expected.toString().trim(), actual.toString().trim());
 	}
 	
 	private String getResourceAsString(String resourceName) throws IOException {

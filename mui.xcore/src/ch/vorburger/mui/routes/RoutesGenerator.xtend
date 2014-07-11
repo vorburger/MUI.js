@@ -4,12 +4,19 @@ import mui.AbstractState
 import mui.States
 import com.google.common.base.Function
 import mui.State
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.emf.common.util.TreeIterator
+import java.util.Iterator
 
 class RoutesGenerator /* ? implements JS(!)IGenerator ? */ {
 
 	// TODO module name should not be hard-coded..
 	// TODO header stuff should be shared out somewhere else re-usable
 	// TODO ultimately, this shouldn't be in project mui.xcore, but fine grained modularized in a a routing support add-on plug-in 
+	
+	TreeIterator<Object> iterator
+	
 	def js(States states) '''
 		'use strict';
 
@@ -20,9 +27,9 @@ class RoutesGenerator /* ? implements JS(!)IGenerator ? */ {
 		    $urlRouterProvider.otherwise('«states.start.fqu»');
 		    $urlRouterProvider.when('', '«states.start.fqu»');
 		
-		    $stateProvider « /* nota bene: better to NOT (ever) use just url: '/' ! */ »
-		    «FOR state : states.states» // TODO all CONTAINED states!!
-		      .state('«state.fqn»', { url: '«state.fqu»', «IF state.isAbstract »abstract: true, «ENDIF»views: { «state.genViews» } } )
+		    $stateProvider« /* nota bene: better to NOT (ever) use just url: '/' ! */ »
+		    «FOR state : states.allContained(AbstractState)»
+		      .state('«state.fqn»', { url: '«state.fqu»', «IF state.isAbstract »abstract: true, «ELSE»title: '«(state as State).title»', «ENDIF»views: { «state.genViews» } } )
 		    «ENDFOR»
 		});
 	'''
@@ -51,6 +58,10 @@ class RoutesGenerator /* ? implements JS(!)IGenerator ? */ {
 		fqX(state, ".", [ stateX | stateX.name ] )
 	}
 	
+	// ---
+	// TODO Following generic helpers should be moved out
+	
+	// TODO make this generic <T>	
 	def fqX(AbstractState state, String delimiter, Function<AbstractState, String> x) {
 		var xString = new StringBuilder(x.apply(state))
 		var parent = state;
@@ -60,4 +71,23 @@ class RoutesGenerator /* ? implements JS(!)IGenerator ? */ {
 		}
 		return xString
 	}
+	
+	// TODO Does this already exist anywhere else like this (using Iterable streaming, not List) ?
+	def <T extends EObject> Iterable<T> allContained(EObject root, Class<T> type) {
+		// TODO TDD if (type.isAssignableFrom(root.getClass())) - union
+		
+		// TODO vs. EcoreUtil2.eAll(EObject) vs. root.eAllContents() - what's the difference??
+		val iterator = EcoreUtil.getAllProperContents(root, true)
+		val iterable = toIterable(iterator)
+		return iterable.filter[ type.isAssignableFrom(it.getClass) ]
+	}
+
+	def <T> Iterable<T> toIterable(Iterator<T> iterator) {
+		return new Iterable<T>() {
+			override iterator() {
+				iterator
+			}
+		}
+	}
+
 }
