@@ -27,13 +27,19 @@ class RoutesGenerator /* ? implements JS(!)IGenerator ? */ {
 		
 		    $stateProvider« /* nota bene: better to NOT (ever) use just url: '/' ! */ »
 		    «FOR state : states.allContained(AbstractState)»
-		      .state('«state.fqn»', { url: '«state.fqu»', «IF state.isAbstract »abstract: true, «ELSE»title: '«(state as State).title»', «ENDIF»views: { «state.genViews» } } )
+		      .state('«state.fqn»', { url: '«state.fqu»', «IF state.isAbstract »abstract: true, «ELSE»title: '«(state as State).title»', «ENDIF»«state.genViews» } )
 		    «ENDFOR»
 		});
 	'''
 	
 	def genViews(AbstractState state) '''
-	'''
+		views: {
+			«FOR view : state.views»
+				'«view.name»': { templateUrl: '«view.template»'«ifNonNull("controller", view.controller)» }
+			«ENDFOR»
+		}'''
+	
+	def ifNonNull(String name, String value) '''«IF (value != null)», «name»: '«value»'«ENDIF»'''
 	
 	def boolean isAbstract(AbstractState state) {
 		return !(state instanceof State)

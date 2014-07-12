@@ -40,6 +40,7 @@ public class RoutesGeneratorIntegrationTest {
 		CharSequence genJS = routesGenerator.js(states);
 		CharSequence expectedJS = getResourceAsString("routes.js");
 		assertEquals(expectedJS, genJS);
+		// TODO assert its valid JS by running it through a JS parser
 	}
 	
 	// TODO move following two helper up somewhere handy...
