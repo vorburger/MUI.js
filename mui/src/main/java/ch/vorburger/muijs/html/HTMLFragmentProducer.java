@@ -1,11 +1,11 @@
 package ch.vorburger.muijs.html;
 
-import ch.vorburger.genny.TextProducerAdapter;
+import ch.vorburger.genny.TextProducerStringBuilderBasedImpl;
 
-public abstract class HTMLFragmentProducer extends TextProducerAdapter {
+public class HTMLFragmentProducer extends TextProducerStringBuilderBasedImpl {
 
 	public HTMLFragmentProducer() {
-		setContentType("text/html");
+		super("text/html");
 	}
 	
 }

@@ -2,7 +2,7 @@ package ch.vorburger.genny;
 
 import java.io.InputStream;
 
-public interface StreamProducer {
+public interface StreamProducer extends HasContentType {
 
 	/**
 	 * Binary Output of this Producer.
@@ -11,10 +11,4 @@ public interface StreamProducer {
 	 */
 	InputStream getBinaryOutput();
 	
-	/**
-	 * The MIME Type (AKA Content Type) of the stream produced.
-	 * @return RFC 2046 compliant type
-	 */
-	// TODO Better more strongly typed return type than String
-	String getContentType();
 }

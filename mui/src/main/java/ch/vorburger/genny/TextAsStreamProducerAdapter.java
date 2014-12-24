@@ -2,6 +2,7 @@ package ch.vorburger.genny;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.nio.charset.Charset;
 
 import org.apache.commons.io.input.ReaderInputStream;
@@ -10,39 +11,39 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.io.CharStreams;
 
-public abstract class TextProducerAdapter implements TextProducer {
-	private static final Logger LOG = LoggerFactory.getLogger(TextProducerAdapter.class);
+public class TextAsStreamProducerAdapter implements StreamProducer  {
+	private static final Logger LOG = LoggerFactory.getLogger(TextAsStreamProducerAdapter.class);
 	
-	private String contentType;
+	private final TextProducer textProducer;
+	
 	private Charset charset;
 
+	public TextAsStreamProducerAdapter(TextProducer textProducer) {
+		super();
+		this.textProducer = textProducer;
+	}
+
 	@Override
-	public final InputStream getBinaryOutput() {
+	public String getContentType() {
+		return textProducer.getContentType();
+	}
+
+	protected Reader getTextOutput() {
+		return textProducer.getTextOutput();
+	}
+
+	@Override
+	public final InputStream getBinaryOutput() throws IllegalStateException {
 		return new ReaderInputStream(getTextOutput(), getCharset());
 	}
 
-	@Override
-	public final String getContentType() throws IllegalStateException {
-		if (contentType == null)
-			throw new IllegalStateException("ContentType has not (yet?) been set");
-		return contentType;
-	}
-
-	// Intentionally protected - the implementation will choose the desired content type
-	protected final void setContentType(String contentType) throws IllegalStateException {
-		if (contentType != null)
-			throw new IllegalStateException("ContentType has already been set");
-		this.contentType = contentType;
-	}
-	
-	@Override
 	public final Charset getCharset() throws IllegalStateException {
 		if (charset == null)
 			throw new IllegalStateException("Charset has not (yet?) been set");
 		return charset;
 	}
 
-	// Intentionally public - the call will choose the requested charset
+	// Intentionally public - the caller will have to choose the requested CharSet
 	public final void setCharset(Charset charset) throws IllegalStateException {
 		if (charset != null)
 			throw new IllegalStateException("Charset has already been set");
