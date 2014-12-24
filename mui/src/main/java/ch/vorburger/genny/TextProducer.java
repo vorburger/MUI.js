@@ -3,13 +3,11 @@ package ch.vorburger.genny;
 import java.io.IOException;
 import java.io.Reader;
 
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.CharStreams;
 
 public interface TextProducer extends HasContentType {
-	static final Logger LOG = LoggerFactory.getLogger(TextProducer.class);
 
 	/**
 	 * Textual Output of this Producer.
@@ -23,7 +21,8 @@ public interface TextProducer extends HasContentType {
 			return CharStreams.toString(getTextOutput());
 		} catch (IOException e) {
 			String msg = "IOException from getTextOutput(): " + e.getMessage();
-			LOG.warn(msg, e);
+			// Logger here instead of static final, because we don't want it public (implementing classes should have their own)
+			LoggerFactory.getLogger(TextProducer.class).warn(msg, e);
 			return msg;
 		}
 	}

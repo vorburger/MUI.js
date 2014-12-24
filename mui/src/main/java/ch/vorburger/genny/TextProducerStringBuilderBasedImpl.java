@@ -32,4 +32,12 @@ public class TextProducerStringBuilderBasedImpl implements TextProducer {
 		return sb.toString();
 	}
 
+	@Override
+	public final String toString() {
+		String objectToString = getClass().getName() + "@" + Integer.toHexString(hashCode()); // super.toString()
+		StringBuilder sb = new StringBuilder(objectToString);
+		sb.append(asString());
+		return objectToString.toString();
+	}
+
 }
